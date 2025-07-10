@@ -1,0 +1,426 @@
+Unnamed: 0,Subject,To Emails,Type,Description,Email,Full name,Ticket ID,Base Query,Insight 1,Insight 2,Created Time,Email_flag,lc_created_date,created_date,status_date,loan_id_pk,user_id,first_name,email_x,mobile_number,source,completed_steps,task_id,amount,source_rl,lr_status,umrn_number,required_loan_id,disbursement_completion_date,vf confirmation,registration_fees_confirmation,head,value,last_stage_checklist,data_from,User ID,Loan ID,created date,Loan Status,EMI Amount,Withdrawal Amount,Delay Outstanding,Total Overdue,repayment_status,data_from_IM_pls,Mobile phone,new,new|fasttext,new|fasttext_scores,la_source,af_flag,email_y,head_list,ticket_id,min
+0,Payment done but not reflected ,,IM+,I have to paid my due in manually but not reflected in loan,saravana1259@gmail.com,Saravana1259,3633261,,,,2025-06-30 18:36:54,1,2024-07-20,2025-06-16,2025-06-17,26977924.0,4035816.0,saravanan V,saravana1259@gmail.com,8946006986.0,ANDROID,[''],LOA-3PQFD6YP,3000.0,LDC,DISBURSED,,LOA-3PQFD6YP,2025-06-17,True,True,,temp,,IM,BJN2SFU1ZR,LOA-3PQFD6YP,2025-06-17,DISBURSED,1585.5,3000.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.2258747071027755,,False,saravana1259@gmail.com,[nan],3633261,56386
+0,Change bank account,['cs@instamoney.app'],IM+,"Hi team ,
+
+I want to change my Bank account, pls help me with this.
+
+Thanks
+Abhishek R
+9880804843
+
+",theabhiram07@gmail.com,Abhishek R,3633264,,,,2025-06-30 18:50:52,1,2024-06-27,2025-05-06,2025-06-29,20016998.0,2186070.0,Abhishek Ramakrishna,theabhiram07@gmail.com,9880804843.0,ANDROID,[''],LOA-MAYZEP71,4000.0,LDC,CLOSED,,LOA-MAYZEP71,2025-05-08,True,True,,temp,,IM,U8QGMNVVQN,LOA-MAYZEP71,2025-05-08,CLOSED,1480.67,4000.0,0.0,0.0,REGULAR,IM+,,Update_-_Edit_details_Bank_Account_details_,47,0.6642435193061829,,False,theabhiram07@gmail.com,[nan],3633264,56389
+1,Sir mera emi ka date change krwana hai Mera ko pard payment Krna hai qk mera abhi tbyat Boht khrb hai sir,,IM+,"Adil Rashid :  adilrashid54284@gmail.com sir mera emi kal pad nhi kr paye gai qk Mera tbyat Boht khrb hai is liye kuch din baad pad kre gai        On Mon, Jun 30, 2025, 8:52 PM CS InstaMoney <cs@instamoney.app> wrote:    	 Hello Adil    We hope you are doing fine!    We would like to inform you that we have not received any response to this email, so we are closing this email for now. Respond back if you wish to communicate further.    Best Regards, Customer Support",adilrashid54284@gmail.com,Adil Rashid,3633263,,,,2025-06-30 18:46:46,1,2021-01-14,2025-06-12,2025-06-12,26860190.0,217898.0,Adil Rashid,adilrashid54284@gmail.com,9007524969.0,ANDROID,[''],LOA-2LE85LBL,500.0,LDC,DISBURSED,,LOA-2LE85LBL,2025-06-12,True,True,,temp,,IM,04ER81V6L1,LOA-2LE85LBL,2025-06-12,DISBURSED,266.46,500.0,0.0,10722.53,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.3112749755382538,,False,adilrashid54284@gmail.com,[nan],3633263,56389
+0,Repayment,['cs@instamoney.app'],IM+,"I want to repay my amount i.e. 5166/- but every time I go to repayment
+option, it's showing some system error. How can I repay my amount
+
+",manas.gouda@gmail.com,Manas Gouda,3633267,,,,2025-06-30 18:54:31,1,2024-08-17,2025-04-30,2025-05-03,19899692.0,5882211.0,Manas Kumar Gouda,manas.gouda@gmail.com,9861629219.0,ANDROID,[''],LOA-NAX41PBN,5000.0,LDC,DISBURSED,,LOA-NAX41PBN,2025-05-03,True,True,,temp,,IM,5DBKVYXY94,LOA-NAX41PBN,2025-05-03,DISBURSED,1861.67,5000.0,0.0,5165.46,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.7104527950286865,,False,manas.gouda@gmail.com,[nan],3633267,56390
+798,I paid my loan amount of Rs 3779 but it is not showing in the app..,['cs@instamoney.app'],IM+,,rchristyandrews@gmail.com,Christy Andrews Roy,3633276,,,,2025-06-30 19:21:04,1,2022-08-12,2025-06-10,2025-06-10,26834170.0,1628565.0,CHRISTY ANDREWS ROY,rchristyandrews@gmail.com,9995084105.0,ANDROID,[''],LOA-PFP1EHXJ,18500.0,LDC,DISBURSED,,LOA-PFP1EHXJ,2025-06-10,True,True,,temp,,IM,VYKUA94MU8,LOA-PFP1EHXJ,2025-06-10,DISBURSED,3798.67,18500.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.5737015604972839,,False,rchristyandrews@gmail.com,"[nan, nan, nan, nan]",3633276,56822
+0,I paid my loan amount of Rs 3799 but it is not showing in the app..,['cs@instamoney.app'],IM+,,rchristyandrews@gmail.com,Christy Andrews Roy,3633277,,,,2025-06-30 19:21:44,1,2022-08-12,2025-06-10,2025-06-10,26834170.0,1628565.0,CHRISTY ANDREWS ROY,rchristyandrews@gmail.com,9995084105.0,SPOT,[''],LOA-PFP1EHXJ,18500.0,LDC,DISBURSED,,LOA-PFP1EHXJ,2025-06-10,True,True,,temp,,IM,VYKUA94MU8,LOA-PFP1EHXJ,2025-06-10,DISBURSED,3798.67,18500.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.5737015604972839,,False,rchristyandrews@gmail.com,"[nan, nan, nan, nan, nan, nan, nan, nan, nan]",3633277,56395
+0,Urgent,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Hello,
+Registered number-8519876357
+
+I have already made the payment due on 1st July, yesterday on 30th june.
+For 4798
+
+I have got the confirmation as well, and the payment is updated in the
+application as well.
+
+Then why do i keep getting mails again for the payment, also why is it
+showing schedule in auto pay in phone pe.
+
+Kindly stop that and don't try to deduct any more payments from my account,
+i need to keep funds in my account for other stuff.
+
+If you guys deduct money even after the payment is done it will not be
+good.
+
+Regards,
+Maheen.
+
+",amaheen147@gmail.com,Maheen Ahmed,3633280,,,,2025-06-30 19:30:04,1,2022-11-22,2025-06-26,2025-06-26,27321597.0,427745.0,MAHEEN AHMED,amaheen147@gmail.com,8519876357.0,ANDROID,[''],LOA-1F2A67P3,2000.0,LDC,DISBURSED,,LOA-1F2A67P3,2025-06-26,True,True,,temp,,IM,VSR8Y1O5GF,LOA-1F2A67P3,2025-06-26,DISBURSED,1087.55,2000.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,16,0.1661619544029235,,False,amaheen147@gmail.com,"[nan, nan, nan, nan]",3633280,56397
+1,URGENT,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Hello,
+Registered number-8519876357
+
+I have already made the payment due on 1st July, yesterday on 30th june,
+attaching screenshot.
+
+I have got the confirmation as well, and the payment is updated in the
+application as well.
+
+Then why do i keep getting mails again for the payment, also why is it
+showing schedule in auto pay in phone pe.
+
+Kindly stop that and don't try to deduct any more payments from my account,
+i need to keep funds in my account for other stuff.
+
+If you guys deduct money even after the payment is done it will not be
+good.
+
+Regards,
+Maheen.
+
+",amaheen147@gmail.com,Maheen Ahmed,3633279,,,,2025-06-30 19:29:01,1,2022-11-22,2025-06-26,2025-06-26,27321597.0,427745.0,MAHEEN AHMED,amaheen147@gmail.com,8519876357.0,ANDROID,[''],LOA-1F2A67P3,2000.0,LDC,DISBURSED,,LOA-1F2A67P3,2025-06-26,True,True,,temp,,IM,VSR8Y1O5GF,LOA-1F2A67P3,2025-06-26,DISBURSED,1087.55,2000.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,16,0.1594294607639312,,False,amaheen147@gmail.com,"[nan, nan, nan, nan]",3633279,56397
+0,Request,['cs@lendenclub.com'],Others,"Dear InstaMoney Team,
+
+I am writing to request a refund of ₹249, which I paid as a processing fee
+while applying for a ₹5,000 loan through your app. Unfortunately, my
+application was later rejected, and no loan was disbursed to me.
+
+Since the service was not provided, I believe I am entitled to a full
+refund of the amount paid.
+
+Here are the transaction details:
+
+Date of Payment: 30 june 2025
+
+Amount Paid: ₹249
+
+Transaction ID / UPI Ref No: 554703141454
+
+Registered Mobile Number: 9817611763
+
+
+
+Please refund the amount to the original payment method within 3 business
+days, or I will be compelled to raise a formal complaint with the RBI and
+Consumer Forum.
+
+I hope for a quick and professional resolution.
+
+Regards,
+Khushbu Gosai
+
+
+---
+
+",khushbugosai07@gmail.com,Khushbu Gosai,3633290,,,,2025-06-30 20:26:54,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Escalations_RBI-Cyber_cell_,2,0.0926905497908592,,False,,,3633290,56409
+0,My lone EMI is my Account cut ,,IM+,My lone EMI is my Account cut ,nadeemthakur91@gmail.com,Nadeemthakur91,3633292,,,,2025-06-30 20:43:56,1,2024-06-04,2025-06-05,2025-06-05,26716942.0,1177439.0,Kajal,nadeemthakur91@gmail.com,9810822967.0,ANDROID,[''],LOA-9SPRDT11,3500.0,LDC,DISBURSED,,LOA-9SPRDT11,2025-06-05,True,True,,temp,,IM,Y3C4LSQJFT,LOA-9SPRDT11,2025-06-05,DISBURSED,1303.56,3500.0,0.0,4301.36,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.5901018381118774,,False,nadeemthakur91@gmail.com,[nan],3633292,56412
+0,Fwd: Why am I getting this message,['cs@instamoney.app'],IM+,"Regards
+K.Raju
+8297936068
+
+
+---------- Forwarded message ---------
+From: Raju Reed <reed.raju16@gmail.com>
+Date: Mon, 30 Jun 2025 at 2:42 AM
+Subject: Why am I getting this message
+To: support@lendenclub.com <support@lendenclub.com>
+
+
+Hi Team,
+
+I am surprised to see I am getting debit message which I am not aware of
+and I request you to explain and stop the services immediately.
+
+Unsubscribe me from your services, I have attached the msg proof.
+
+
+Regards
+K.Raju
+8297936068
+
+",reed.raju16@gmail.com,Raju Reed,3633302,,,,2025-06-30 22:03:31,1,2024-01-18,2025-05-28,2025-05-28,26447655.0,200069.0,K RAJU,reed.raju16@gmail.com,8297936068.0,ANDROID,[''],LOA-K5Q3H745,15000.0,LDC,DISBURSED,,LOA-K5Q3H745,2025-05-28,True,True,,temp,,IM,I18NAN1EOZ,LOA-K5Q3H745,2025-05-28,DISBURSED,4364.25,15000.0,0.0,0.0,REGULAR,IM+,,Predisbursal_Loan_Query_IM+_instances,10,0.3951786458492279,,False,reed.raju16@gmail.com,[nan],3633302,56428
+0,How to put my bank details ,,Others,How to put my bank account details ,2005sahoo@gmail.com,Rakesh Sahoo,3633353,,,,2025-07-01 01:41:52,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Bank_Account_details_,47,0.1228241547942161,,False,,,3633353,56478
+2,Loan,['cs@instamoney.app'],IM,"The loan agreement has also been made, so why is it taking so long? I need
+a referral to the hospital. Please hurry up.
+
+",dharmendrabrahmbhatt1@gmail.com,dharmendra brahmbhatt,3633354,,,,2025-07-01 01:48:30,1,2024-10-04,2025-05-03,2025-06-30,19970786.0,7910755.0,Dharmendar Kumar Suresh Chandra brahmbhatt,dharmendrabrahmbhatt1@gmail.com,9624147368.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-AS5CPCG9,32000.0,LDC,UNDER_REVIEW,,LOA-AS5CPCG9,,False,True,MANUAL_DASHBOARD,BRE_BANK_DETAILS MARKED LOAN AS MANUAL DASHBOARD,SIGNED_DOCUMENTS,IM,,,,,,,,,,,,Predisbursal_Loan_Query_Credit_team_action_pending,45,0.3622061908245086,,True,dharmendrabrahmbhatt1@gmail.com,"['MANUAL_DASHBOARD', 'MANUAL_DASHBOARD']",3633354,56480
+4,Change my bank account ,,IM+,Dear Team      Change my  bank account kindly support ,bitabehera236@gmail.com,Bita Behera,3633385,,,,2025-07-01 02:43:12,1,2024-06-19,2025-06-03,2025-06-04,26671302.0,1934292.0,Bita Behera,bitabehera236@gmail.com,9444319101.0,ANDROID,[''],LOA-DPBBAY7H,3500.0,LDC,DISBURSED,,LOA-DPBBAY7H,2025-06-04,True,True,,temp,,IM,YBTB1P34CB,LOA-DPBBAY7H,2025-06-04,DISBURSED,1305.11,3500.0,0.0,0.0,REGULAR,IM+,,Update_-_Edit_details_Bank_Account_details_,10,0.854385256767273,,False,bitabehera236@gmail.com,[nan],3633385,56494
+2,Need to change the bank account ,,IM,"Hi, i need to update my bank details for auto debit as the bank account currently linked with this app is not valid anymore and due to which there can be bounce issue",chauhan.rohit51@gmail.com,Chauhan. rohit51,3633477,,,,2025-07-01 04:20:09,1,2025-02-04,2025-02-04,2025-07-01,17810094.0,14266894.0,ROHIT CHAUHAN,chauhan.rohit51@gmail.com,9867013256.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-T38G7D59,25000.0,LDC,DISBURSED,,LOA-T38G7D59,2025-05-22,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,REGULAR,,,Update_-_Edit_details_Bank_Account_details_,10,0.1488058120012283,PAYMENT_GATEWAY,True,chauhan.rohit51@gmail.com,['FINAL_APPROVED'],3633477,56516
+5,Sar ji hamara bank statement बार-बार TRAI again Ho Ja Raha Hai sar hamara Bank mein dusra number Hai sar uske OTP aadha sar vah bhi dalte answer jab bhi nahin Ho Pa Raha,,Others,Sar ji bank detail verify nahin Ho Pa Raha sar बार-बार OTP Yadav usmein Dal De free,jetenderk109@gmail.com,Jetenderk109,3633487,,,,2025-07-01 04:25:52,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Bank_Account_details_,47,0.1271162778139114,,False,,,3633487,56517
+2,Change bank account,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Change of bank account and cancel mandate on my previous account.
+
+",jatinsri33@gmail.com,Jatin Srivastava,3633608,,,,2025-07-01 05:39:19,1,2025-02-03,2025-05-21,2025-06-28,24419666.0,14233476.0,Jatin Srivastava,jatinsri33@gmail.com,8318586760.0,ANDROID,[''],LOA-L5V785X6,10000.0,LDC,CLOSED,,LOA-L5V785X6,2025-05-21,True,True,,temp,,IM,HLDFSMQ7XX,LOA-L5V785X6,2025-05-21,CLOSED,3785.39,10000.0,0.0,0.0,REGULAR,IM+,,Update_-_Edit_details_Bank_Account_details_,47,0.8433946371078491,,False,jatinsri33@gmail.com,"[nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan, nan]",3633608,56547
+6,Regarding my bank account details update,['cs@instamoney.app'],Others,"Sir /mam
+
+ I shrey as ur active client wants to update my bank details in app please
+revert back to me .
+
+Regards
+Shrey singhal
+
+",talktoshrey@gmail.com,my list shrey,3633661,,,,2025-07-01 06:12:47,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Bank_Account_details_,47,0.1002845019102096,,False,,,3633661,56560
+17,Loan,"['""CS InstaMoney"" <cs@instamoney.app>']",IM,"I have an account in instamoney  I wish to change  my profile details and
+bank account no and   enach
+
+Please help me
+My login mobile no is 7025011702
+
+",subeeshpc003@gmail.com,Pc subeesh,3634150,,,,2025-07-01 09:51:39,1,2019-11-25,2024-07-27,2024-07-27,5784393.0,3085800.0,Gandham kanaka durga,subeeshpc003@gmail.com,9398078447.0,ANDROID,['PROFESSIONAL_DETAILS'],LOA-64G2S86J,0.0,LDC,EXPIRED,,LOA-64G2S86J,,True,True,,temp,PROFESSIONAL_DETAILS,IM,,,,,,,,,,,,Canceled_Loan_Checking_for_Reason_,47,0.1463811844587326,,False,subeeshpc003@gmail.com,[nan],3634150,56614
+3,Request,['cs@instamoney.app'],IM,"My loan rejected,,,so assessment money return my bank account
+
+",nabajyotinath36@gmail.com,NABA JYOTI NATH,3634228,,,,2025-07-01 10:14:47,1,2023-05-22,2025-04-18,2025-07-01,19760274.0,2669387.0,NABAJYOTI NATH,nabajyotinath36@gmail.com,9706882192.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF']",LOA-7B7NDFNK,0.0,LDC,REJECTED,,LOA-7B7NDFNK,,True,True,AUTO REJECTED,FF_REJECTION,BUREAU,IM,,,,,,,,,,,,Rejected_Loan_Checking_for_Reason,41,0.240470603108406,,True,nabajyotinath36@gmail.com,['AUTO REJECTED'],3634228,56617
+7,Repayment,['cs@instamoney.app'],IM,"I'm already paid my emi payment on Google pay so why are you debited twice?
+
+",princezombiejacks@gmail.com,prince Sohatra,3634300,,,,2025-07-01 10:35:36,1,2023-10-23,2025-04-09,2025-07-01,19661868.0,1288284.0,Prince Sohatra,princezombiejacks@gmail.com,8295301262.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-3LMQJS3V,5000.0,LDC,DISBURSED,,LOA-3LMQJS3V,2025-06-17,True,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,REGULAR,,,Post_Loan_Disbursal_query_Payment_Refund_Request,10,0.4846387207508087,PAYMENT_GATEWAY,True,princezombiejacks@gmail.com,['FINAL_APPROVED'],3634300,56622
+0,Loan,['cs@instamoney.app'],Others,"
+Paise le liye apne but loan apply nhi kra Sent from my iPhone
+",unkonwnperson46479@gmail.com,Anup Kumar,3634364,,,,2025-07-01 10:59:18,1,2025-05-27,2025-07-01,2025-07-01,27555541.0,18271926.0,ANUP,unkonwnperson46479@gmail.com,9717213081.0,,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF']",LOA-SB9MB5CT,0.0,,REJECTED,,LOA-SB9MB5CT,,False,True,AUTO REJECTED,FF_REJECTION,BUREAU,IM,,,,,,,,,,,,Rejected_Loan_Checking_for_Reason,41,0.3398656249046325,,True,unkonwnperson46479@gmail.com,['AUTO REJECTED'],3634364,56627
+17,Regarding loan repayment,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Dear sir
+Please refund my amount
+
+",neha.javed1051@gmail.com,Neha. javed1051,3634402,,,,2025-07-01 11:10:17,1,2023-08-30,2025-05-16,2025-05-17,21129362.0,323162.0,RUKAIYA,neha.javed1051@gmail.com,9565348028.0,ANDROID,[''],LOA-SYUMYTA7,33500.0,LDC,DISBURSED,,LOA-SYUMYTA7,2025-05-17,True,True,,temp,,IM,GV26OSEBQH,LOA-SYUMYTA7,2025-05-17,DISBURSED,6802.73,33500.0,0.0,0.0,REGULAR,IM+,,Post_Loan_Disbursal_query_Payment_Refund_Request,10,0.2950203120708465,,False,neha.javed1051@gmail.com,"[nan, nan, nan, nan]",3634402,56629
+3,Request to update bank account details,,IM+,"Prasanth Av :   I have already informed that this is my new bank account. My first salary has been credited to this account, and my previous account has been closed. I have attached the new bank statement as proof. Kindly review it and provide me with the option to update my bank details in the InstaMoney app so I can add the new account.         On Tue, Jul 1, 2025, 16:53 CS InstaMoney <cs@instamoney.app> wrote:    	 Hello Prasanth    We hope you are doing fine!    We would like to inform you that we have not received any response to this email, so we are closing this email for now. Respond back if you wish to communicate further.    Best Regards, Customer Support      Attachments :1. Acct Statement_XX2059_01072025.pdf",avprasanth80728@gmail.com,Prasanth Av,3634493,,,,2025-07-01 11:42:23,1,2021-05-13,2025-05-02,2025-06-17,19951232.0,306658.0,PRASANTH A V,avprasanth80728@gmail.com,8072898827.0,ANDROID,[''],LOA-6EG2PUHG,6500.0,LDC,CLOSED,,LOA-6EG2PUHG,2025-05-06,True,True,,temp,,IM,6F1GUBMIJT,LOA-6EG2PUHG,2025-05-06,CLOSED,2412.98,6500.0,0.0,0.0,REGULAR,IM+,,Update_-_Edit_details_Bank_Account_details_,2,0.1046154126524925,,False,avprasanth80728@gmail.com,[nan],3634493,56635
+4,Double EMI payment,,IM,I had paid my EMI manually but there has been an auto debit from your end too. Please refund the extra amount paid,rajanvg1993@gmail.com,V G Rajan,3634509,,,,2025-07-01 11:45:14,1,2023-11-24,2025-02-25,2025-07-01,19141695.0,4772623.0,V G RAJAN,rajanvg1993@gmail.com,6364676482.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-TCC5MJ2A,25000.0,LDC,DISBURSED,ICIC7020403241000320,LOA-TCC5MJ2A,2025-03-06,True,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,REGULAR,,,Post_Loan_Disbursal_query_Payment_Refund_Request,10,0.4051098227500915,PAYMENT_GATEWAY,True,rajanvg1993@gmail.com,['FINAL_APPROVED'],3634509,56636
+1,Provide fast loan credit account ,,Others,Please quickly provide amount in account urgent ,md7882933@gmail.com,Manish Dubey,3634530,,,,2025-07-01 11:51:56,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Bank_Account_details_,47,0.1065371111035347,,False,,,3634530,56637
+5,Loan repayment,,IM+,I have repaid my loan and the loan status is still showing active. Please check and close my loan and provide NOC asap,karthik341995@gmail.com,Karthik341995,3634673,,,,2025-07-01 12:49:16,1,2018-12-22,2025-01-16,2025-01-16,16639891.0,960610.0,S KARTHIK,karthik341995@gmail.com,9551557262.0,ANDROID,['SIGNED_DOCUMENTS'],LOA-4AXRD21R,1200.0,LDC,DISBURSED,,LOA-4AXRD21R,2025-01-16,True,True,,temp,SIGNED_DOCUMENTS,IM,P2HDP02HJ4,LOA-4AXRD21R,2025-01-16,CLOSED,642.68,1200.0,0.0,0.0,REGULAR,IM+,,Post_loan_closure_queries_Surrender_of_IM+_limit_,10,0.1390725374221801,,False,karthik341995@gmail.com,[nan],3634673,56648
+3,BANK ACCOUNT,"['""cs@lendenclub.com"" <cs@lendenclub.com>']",Others,"Sir,
+
+      I got sanctioned for loan upto Rs. 40000, (forty thousand). I
+submitted my
+Bank statement by account aggregrattor and verification also success. After
+that,
+Also      Asking check the account number. I entered the submitted account
+number. But, that shows check bank account number. So, kindly process my
+application . soon as possible.
+
+Ref. Account number61092610002815.
+
+Name   .   T. R. Venkatesh
+
+            Contact. 9150790099
+                              9176315404
+
+",mithitejas2208@gmail.com,T R VENKATESH,3634922,,,,2025-07-01 14:59:42,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Bank_Account_details_,47,0.1280901432037353,,False,,,3634922,56671
+0,Account closure,,IM+,"RAVIKUMAR :  Still NOC certificate not received         On Tue, 1 Jul, 2025, 19:27 CS InstaMoney, <cs@instamoney.app> wrote:    	   Dear Ravi,     Greetings of the day!     We are pleased to inform you that your loan has been successfully marked as closed. The NOC has been sent to your registered email ID.     Additionally, you can also download the NOC directly from your InstaMoney app for your reference.     Please feel free to reach out if you need any further assistance.       Thank you.     Best Regards,  Customer Support  Have a look at our FAQ's https://bit.ly/2NsxH06                                                          On                            Mon, 30 Jun at  4:57 PM                            ,  RAVIKUMAR <kravi401@gmail.com>  wrote:                             Dear instamoney     Please close my account or surrender my account.     And provide NOC certificate and update it on credit bureaus ASAP.     Regards      Ravi Kubavat          On Mon, 30 Jun, 2025, 16:53 CS InstaMoney, <cs@instamoney.app> wrote:    	    Dear Ravikumar,     Thank you for writing to us.     We would like to inform you that your account has been upgraded to InstaMoney Plus, allowing you to borrow instantly. While you currently do not have an active loan with us, please note that we do not report your account as closed to credit bureaus unless you submit a request to surrender your account.  Kindly confirm if you wish to proceed with the closure. Upon receiving your confirmation, we will close your account and send a No Due Certificate (NDC) to your registered email. Following this, we will also notify CIBIL and other credit bureaus within 15 calendar days.     We look forward to your response.         Thank you.     Best Regards,  Customer Support  Have a look at our FAQ's https://bit.ly/2NsxH06                                                          On                            Mon, 30 Jun at 10:47 AM                            ,  CS InstaMoney <cs@instamoney.app>  wrote:                              Dear Customer,  Greetings of the day!  We have received your message and are currently working on it. Please allow us some time to look into the matter thoroughly.  We appreciate your patience and will get back to you as soon as possible.  Thank you for your trust and understanding.  Best regards, Team InstaMoney",kravi401@gmail.com,RAVIKUMAR,3635175,,,,2025-07-01 17:34:45,1,2023-08-24,2025-05-31,2025-06-27,26591669.0,354316.0,KUBAVAT RAVIKUMAR C,kravi401@gmail.com,9510086606.0,ANDROID,[''],LOA-PZR89LJT,10500.0,LDC,CLOSED,,LOA-PZR89LJT,2025-06-01,True,True,,temp,,IM,TAN7920O33,LOA-PZR89LJT,2025-06-01,CLOSED,3041.33,10500.0,0.0,0.0,REGULAR,IM+,,Post_loan_closure_queries_Surrender_of_IM+_limit_,2,0.1373547166585922,,False,kravi401@gmail.com,[nan],3635175,56696
+0,Loan repayment ,,IM,I have payed my full loan and it's showing amount will be refunded. Please close the loan as I have paid the full amount.,cpradhan1996@gmail.com,Chandan Pradhan,3635463,,,,2025-07-02 02:48:51,1,2024-09-27,2025-04-29,2025-07-02,19889875.0,7469099.0,Chandan Pradhan,cpradhan1996@gmail.com,7003148645.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-7YYXRT27,13500.0,LDC,DISBURSED,,LOA-7YYXRT27,2025-05-05,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,DELAYED_1,,,Post_Loan_Disbursal_query_Payment_Refund_Request,10,0.256104052066803,PAYMENT_GATEWAY,True,cpradhan1996@gmail.com,['FINAL_APPROVED'],3635463,56807
+8,Loan,"['""cs@instamoney.app"" <cs@instamoney.app>']",IM,"Dear sir
+
+What happened my loan process ???
+
+",rihanmullani77@gmail.com,Rihan Mullani,3636241,,,,2025-07-02 07:59:51,1,2025-05-20,2025-05-20,2025-07-01,22880239.0,16717527.0,RIHAN MULLANI,rihanmullani77@gmail.com,7020564830.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-3AKV8NPP,23000.0,LDC,UNDER_REVIEW,UTIB7020107251015400,LOA-3AKV8NPP,,False,True,MANUAL_DASHBOARD,BRE_BANK_DETAILS MARKED LOAN AS MANUAL DASHBOARD,SIGNED_DOCUMENTS,IM,,,,,,,,,,,,Predisbursal_Loan_Query_Credit_team_action_pending,7,0.3693458139896393,,True,rihanmullani77@gmail.com,['MANUAL_DASHBOARD'],3636241,56895
+2,Delete my account,['cs@instamoney.app'],IM,"Dear insta money team I register insta money app by mistake please
+deactivate my account
+
+",ronihassan32@gmail.com,RONI HASSAN,3636359,,,,2025-07-02 08:50:09,1,2024-05-21,2024-11-25,2025-03-15,13380485.0,479325.0,RONI HASSAN,ronihassan32@gmail.com,8811982266.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'UNDER_REVIEW']",LOA-6BBKMQU4,0.0,LDC,REJECTED,,LOA-6BBKMQU4,,False,True,AUTO REJECTED,BRE_BANK_STATEMENT - ['Not eligible as per credit underwriting policy'],UNSIGNED_DOCUMENTS,IM,,,,,,,,,,,,Rejected_Loan_Checking_for_Reason,41,0.4016138315200805,,True,ronihassan32@gmail.com,['AUTO REJECTED'],3636359,56907
+21,Unable to login,['cs@instamoney.app'],IM,"Dear Team,
+
+My PAN is associated with another mobile number so I am unable to
+proceed further.
+Please check and revert
+
+Thanks & Regards,
+Ashish Tripathy,
++91-9587232858
+
+",ashishcmtripathy@gmail.com,Ashish Tripathy,3636634,,,,2025-07-02 11:05:18,1,2024-10-14,2024-10-15,2024-10-14,10141555.0,8647766.0,AshishTripathy,ashishcmtripathy@gmail.com,8140967352.0,ANDROID,[''],LOA-DSPAH3E7,0.0,LDC,EXPIRED,,LOA-DSPAH3E7,,,,,temp,,IM,,,,,,,,,,,,Canceled_Loan_Checking_for_Reason_,49,0.2133679389953613,,False,ashishcmtripathy@gmail.com,[nan],3636634,56934
+0,Loan status,,IM,"King Zanthi :  Sir How many days take this process?         On Tue, Jul 1, 2025, 7:25 PM CS Email <cs@lendenclub.com> wrote:    	   Dear Raja,  Welcome to InstaMoney!  We’re pleased to inform you that your documents have been successfully submitted through the mobile app, and your loan application is currently under review.  Your details have been forwarded to our Lending Partner for verification. Once the verification is completed, you’ll be notified about the status of your application directly via the InstaMoney app.  We truly appreciate your patience and cooperation during this process. If you have any further queries, feel free to reach out we’re happy to help!       Thank you.     Best Regards,  Customer Support  Have a look at our FAQ's https://bit.ly/2NsxH06                                                          On                            Tue, 1 Jul at  1:11 PM                            ,  King Zanthi <kingzanthi@gmail.com>  wrote:                             Not resolved sir        On Tue, Jul 1, 2025, 12:18 AM CS Email <cs@lendenclub.com> wrote:    	  Dear King Zanthi,  Your support ticket is now resolved. If this isn't correct, please reply to this email to reopen it.  We'll close the ticket automatically in 48 hours if we don't hear from you.  We appreciate your patience!   Sincerely,  Team InstaMoney",kingzanthi@gmail.com,King Zanthi,3636708,,,,2025-07-02 11:31:02,1,2025-05-27,2025-05-27,2025-06-26,26100709.0,18246578.0,RAJA DOSS,kingzanthi@gmail.com,7299611414.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-H8SQBN8D,14000.0,LDC,UNDER_REVIEW,,LOA-H8SQBN8D,,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,,,,Predisbursal_Loan_Query_Credit_team_action_pending,2,0.1254450529813766,,True,kingzanthi@gmail.com,['FINAL_APPROVED'],3636708,56937
+6,loan disbursement,,Others,"Jawaharlal diwan :  Dear Team,         I am Jawahar Lal diwan applied loan application on your portal and disbursed in another account mistakenly I am mentioned wrong account number amount 10,000/- on dt.08/03/2024 kindly check and reverse to correct account thank you ?.  Wrong account number -50100403933749  Correct account number -50100394033749  Contact number -8839739005     Thanks & Regards  Jawahar Lal diwan  8839739005     Sir please take appropriate action. When there is no money in my account, from where should I pay the loan. Please check. I have mailed my bank statement, still you people are troubling me again and again due to which my mental balance is not feeling right, otherwise I will have to file a police complaint.         On Wed, 2 Jul, 2025, 18:28 CS InstaMoney, <cs@instamoney.app> wrote:    	   Dear Jawaharlal,          Greetings from InstaMoney!     We would like to inform you that, on our records, we see that the loan has been disbursed into the provided bank account. Kindly connect your bank and check the same.      Contact us for further assistance.     Thank you,       Best regards,  Team InstaMoney                                                           On                            Wed, 25 Jun at  2:25 PM                            ,  CS InstaMoney <cs@instamoney.app>  wrote:                                Dear Jawaharlal,      We apologize for the delay and inconvenience caused you.  We would like to inform you that our team is still working on your query, and it is taking longer than initially expected. We will provide you with an update as soon as we have more information and will assist you accordingly.  We appreciate your patience and understanding in the meantime.  Thank you,      Best regards,  Team InstaMoney                                                          On                            Thu, 29 May at  5:15 PM                            ,  CS InstaMoney <cs@instamoney.app>  wrote:                               Dear Jawaharlal,         We apologize for the delay and inconvenience caused you.     We would inform you that our team is looking into your matter, allow us some time, and we shall get back to you as soon as possible.  Meanwhile, we appreciate your patience.  Thank you,      Best regards,  Team InstaMoney                                                          On                            Fri, 23 May at  9:12 AM                            ,  CS InstaMoney <cs@instamoney.app>  wrote:                                Dear Jawaharlal,      We apologize for the delay and inconvenience caused you.  We would like to inform you that our team is still working on your query, and it is taking longer than initially expected. We will provide you with an update as soon as we have more information and will assist you accordingly.  We appreciate your patience and understanding in the meantime.  Thank you,      Best regards,  Team InstaMoney                                                          On                            Fri, 16 May at 12:16 PM                            ,  CS InstaMoney <cs@instamoney.app>  wrote:                               Dear Jawaharlal,        We apologize for the delay and inconvenience caused you.  We would like to inform you that our team is currently reviewing your concern. Please allow us a little more time to address the issue, and we will provide you with an update shortly.  We appreciate your patience and understanding in the meantime.  Thank you,      Best regards,  Team InstaMoney                                                                                                                                                                                                                                                                           	    Attachments :1. 1000002026.jpg 2. 1000001911.jpg 3. 1000002025.jpg",jawaharlaldiwan0@gmail.com,Jawaharlal diwan,3637047,,,,2025-07-02 14:19:23,1,2024-03-02,2024-03-02,2025-01-10,344406.0,182928.0,JAWAHAR LAL DIVAN,jawaharlaldiwan0@gmail.com,8839739005.0,,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'SIGNED_DOCUMENTS']",DIVIIIQF,10000.0,,DISBURSED,,DIVIIIQF,2024-03-08,False,True,APPROVED,Loan Approved by shweta.instamoney@lendenclub.com,SIGNED_DOCUMENTS,IM,,,,,,,,,WRITTEN_OFF,,,Escalations_RBI-Cyber_cell_,10,0.1431907266378402,,True,jawaharlaldiwan0@gmail.com,['APPROVED'],3637047,56966
+11,Emi,['cs@instamoney.app'],Others,"Payment 2 war cardit ho gayi ha
+
+",gss9649994609@gmail.com,Sandhu sabb,3637101,,,,2025-07-02 15:07:08,1,2025-06-09,2025-06-13,2025-06-16,26896809.0,18678578.0,Gurbhej Singh,gss9649994609@gmail.com,9649994609.0,,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'UNDER_REVIEW']",LOA-NN51DK33,0.0,,REJECTED,,LOA-NN51DK33,,False,True,AUTO REJECTED,BRE_BANK_STATEMENT - ['Due to FOIR New'],UNSIGNED_DOCUMENTS,IM,,,,,,,,,,,,Rejected_Loan_Checking_for_Reason,41,0.2265421152114868,,True,gss9649994609@gmail.com,['AUTO REJECTED'],3637101,56975
+9,Double deduction ,,IM,"I paid my emi on 1 july 2025, but it deducted twice from my bank account already 48 hours gone, but refund not received in bank account ",abhimanyuantil5@gmail.com,Abhimanyuantil5,3637470,,,,2025-07-03 02:20:23,1,2024-12-17,2025-05-27,2025-05-27,26025779.0,12145631.0,Abhimanyu,abhimanyuantil5@gmail.com,9466903533.0,ANDROID,[''],LOA-6EQNLPNK,0.0,LDC,EXPIRED,,LOA-6EQNLPNK,,False,True,,temp,,IM,,,,,,,,,,,,Canceled_Loan_Checking_for_Reason_,2,0.0962034538388252,,False,abhimanyuantil5@gmail.com,[nan],3637470,57102
+6,Loan,"['""CS InstaMoney"" <cs@instamoney.app>']",IM,"Please change my profile details from instamoney  and bank account no
+
+Login mobile no is 7025011792
+
+Change bank account no
+Account no is
+Ubin0813991. IFSC
+139910100152832  - account no
+
+",subeeshpc003@gmail.com,Pc subeesh,3637581,,,,2025-07-03 03:31:35,1,2019-11-25,2024-07-27,2024-07-27,5784393.0,3085800.0,Gandham kanaka durga,subeeshpc003@gmail.com,9398078447.0,ANDROID,['PROFESSIONAL_DETAILS'],LOA-64G2S86J,0.0,LDC,EXPIRED,,LOA-64G2S86J,,True,True,,temp,PROFESSIONAL_DETAILS,IM,,,,,,,,,,,,Canceled_Loan_Checking_for_Reason_,47,0.772504985332489,,False,subeeshpc003@gmail.com,[nan],3637581,57117
+8,Loan due,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Hello
+
+I am taken loan from instamoney and due is over becuase  my mom admitted at
+hospital  last 20 days she suffering from brain stoke
+
+My bank account is freezed by cyber crime
+
+I am requesting you pls give me 1 week to pay emi
+
+It's a humble request
+
+Thanks
+Shamim ahmad
+
+",shamimahmed0912@gmail.com,Shamim Ahmed,3637579,,,,2025-07-03 03:31:20,1,2021-06-30,2025-06-01,2025-06-02,26604225.0,12890.0,Shamim Ahmed,shamimahmed0912@gmail.com,9819037621.0,SPOT,[''],LOA-M851VJF9,16000.0,LDC,DISBURSED,,LOA-M851VJF9,2025-06-02,True,True,,temp,,IM,9AQ99YP9H4,LOA-M851VJF9,2025-06-02,DISBURSED,3313.78,16000.0,44.56,16738.15,DELAYED_1,IM+,,Escalations_RBI-Cyber_cell_,10,0.4818445742130279,,False,shamimahmed0912@gmail.com,[nan],3637579,57117
+19,Re:,['cs@lendenclub.com'],IM,"Mere a,c mai mera fees wapas kar do
+
+On Fri, 5 Jul, 2024, 12:27 am Ranvir Pratap, <ranvirpratap717@gmail.com>
+wrote:
+
+> Refund my instamony fee no my bank ac Mera kisi v bank mai a/c nahi hai
+>
+
+",ranvirpratap717@gmail.com,Ranvir Pratap,3638032,,,,2025-07-03 06:08:22,1,2024-06-11,2025-05-24,2025-05-24,25171836.0,1560328.0,RANVIR PRATAP,ranvirpratap717@gmail.com,8252292094.0,ANDROID,[''],LOA-9Z9F7Z1P,0.0,LDC,EXPIRED,,LOA-9Z9F7Z1P,,False,True,,temp,,IM,,,,,,,,,,,,Canceled_Loan_Checking_for_Reason_,7,0.2025350034236908,,False,ranvirpratap717@gmail.com,[nan],3638032,57153
+1,update mobile number,"['""cs@instamoney.app"" <cs@instamoney.app>']",IM,"Old Mobile Number: 9007524163
+Old email: spal.tet@gmail.com
+
+New Mobile Number: 8697198345
+
+Please update my mobile number in your system.
+I am attaching my adhar card & pan card copy.
+Sudipta Pal
+Contact number: 8697198345 / 8697312678
+
+",spal.tet@gmail.com,Sudipta Pal,3639033,,,,2025-07-03 16:16:36,1,2024-11-23,2025-05-19,2025-05-18,21777037.0,11024223.0,SUDIPTA PAL,spal.tet@gmail.com,9007524163.0,ANDROID,[''],LOA-H1QPGU57,0.0,LDC,EXPIRED,,LOA-H1QPGU57,,,,,temp,,IM,,,,,,,,,,,,Update_-_Edit_details_Mobile_Number,49,0.7857850193977356,,False,spal.tet@gmail.com,[nan],3639033,57271
+2,Emi,"['""CS InstaMoney"" <cs@instamoney.app>']",IM,"Respected sir my financial status is very down I will arrange pay pending
+emi by next 6 months time is required As I am arranging I don't any works
+Nor I don't have money to will arrange and pay some more time is required
+Sir try to understand my situation.. .. .I will pay as I am arranging money
+and clear EMI... You agent is messaging and telling me visit my home nt
+going against RBI GUIDELINES.. PLEASE TRY to understand my situation I will
+pay some more time is required ...
+
+
+
+
+
+Regards
+
+Irfan patel
+
+",ip665325@gmail.com,IRFAN Patel,3639488,,,,2025-07-04 06:39:20,1,2023-10-15,2023-10-15,2025-06-09,8840480.0,7585880.0,IRFAN Patel,ip665325@gmail.com,9867221863.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT', 'BRE_BANK_STATEMENT', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",I6VLDK5T,25000.0,LDC,DISBURSED,,I6VLDK5T,2024-12-11,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,DELAYED_3,,,Escalations_RBI-Cyber_cell_,10,0.5143935680389404,,True,ip665325@gmail.com,['FINAL_APPROVED'],3639488,57472
+0,Loan Repayment,['cs@instamoney.app'],IM+,"Hi,
+I would like you to know that I have made my emi payment today i.e on
+4/07/2025 of a sum total of Rs 12477 and it has been updated on the
+instamoney application but the issue is I am still receiving non stop
+messages from instamoney collection on WhatsApp. Kindly please stop sending
+those messages as it's kind of disturbing.
+I would really appreciate it if you convey my issues and solve it at the
+earliest.
+
+Thanks and regards
+Priya baruah
+
+",priyabaruah95@gmail.com,Priya Baruah,3640089,,,,2025-07-04 14:10:57,1,2021-01-08,2025-06-05,2025-06-05,26718048.0,50153.0,PRIYA BARUAH,priyabaruah95@gmail.com,8486641377.0,ANDROID,[''],LOA-ZQ4PZ7B1,13000.0,LDC,DISBURSED,,LOA-ZQ4PZ7B1,2025-06-05,True,True,,temp,,IM,CJAHMUXZTR,LOA-ZQ4PZ7B1,2025-06-05,DISBURSED,3761.34,13000.0,0.0,0.0,REGULAR,IM+,,Escalations_RBI-Cyber_cell_,10,0.1624119728803634,,False,priyabaruah95@gmail.com,[nan],3640089,57584
+0,Regarding EMI ,,IM,I paid the amount but why are you initiate the Auto depit.If you continue i complaint the RBI.,saromli1984@gmail.com,MIDHU TV,3640208,,,,2025-07-04 16:43:28,1,2024-10-21,2025-05-17,2025-07-04,21366627.0,9056327.0,Saravanan  murugesan,saromli1984@gmail.com,7418219134.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-A9XPAAST,18000.0,LDC,DISBURSED,,LOA-A9XPAAST,2025-05-17,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,REGULAR,,,Escalations_RBI-Cyber_cell_,10,0.4201942980289459,UPI_MANDATE,True,saromli1984@gmail.com,['FINAL_APPROVED'],3640208,57614
+2,Regarding EMI ,,IM,Hi i already paid the second EMI.Why are you initiate the Auto pay frequently i complaint the RBI ombudsman.,saromli1984@gmail.com,MIDHU TV,3640422,,,,2025-07-05 03:54:35,1,2024-10-21,2025-05-17,2025-07-05,21366627.0,9056327.0,Saravanan  murugesan,saromli1984@gmail.com,7418219134.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_DETAILS', 'BRE_BANK_DETAILS', 'SELECT_OFFER', 'MANDATE', 'UNSIGNED_DOCUMENTS', 'UNDER_REVIEW', 'SIGNED_DOCUMENTS']",LOA-A9XPAAST,18000.0,LDC,DISBURSED,,LOA-A9XPAAST,2025-05-17,False,True,FINAL_APPROVED,BRE_BANK_DETAILS MARKED LOAN AS FINAL APPROVED,SIGNED_DOCUMENTS,IM,,,,,,,,,REGULAR,,,Escalations_RBI-Cyber_cell_,10,0.2514938414096832,,True,saromli1984@gmail.com,['FINAL_APPROVED'],3640422,57756
+3,Loan,"['""CS InstaMoney"" <cs@instamoney.app>']",Others,"This is Dharmarajan
+Actually I changed my mobile number due to lost my sim
+My new mobile number is 84388 19219
+Old number 8778065271
+Update my mobile number
+Becoz I try to log in app shows me
+This pan number already linked with onether number please solve my problem
+
+",dharmarajanin2001@gmail.com,DHARMARAJAN MOHANASUNDARAM,3640635,,,,2025-07-05 07:08:00,1,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Update_-_Edit_details_Mobile_Number,49,0.3980260193347931,,False,,,3640635,57837
+8,Account Closure,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"First of all Cancel my upi mandate and add my new bank account otherwise
+close my loan account. As soon as possible
+
+",jatinsri33@gmail.com,Jatin Srivastava,3640703,,,,2025-07-05 08:02:37,1,2025-02-03,2025-05-21,2025-06-28,24419666.0,14233476.0,Jatin Srivastava,jatinsri33@gmail.com,8318586760.0,,[''],LOA-L5V785X6,10000.0,,CLOSED,,LOA-L5V785X6,2025-05-21,True,True,,temp,,IM,HLDFSMQ7XX,LOA-L5V785X6,2025-05-21,CLOSED,3785.39,10000.0,0.0,0.0,REGULAR,IM+,,Post_loan_closure_queries_Surrender_of_IM+_limit_,2,0.1030898541212081,,False,jatinsri33@gmail.com,"[nan, nan, nan, nan]",3640703,57859
+0,Bank account,"['""cs@instamoney.app"" <cs@instamoney.app>']",IM,"Hello Iam applying for loan amount of 5000 ijs instamoney app but as
+following instructions I was told to upload 3 months bank statement but
+problem here is my saving account is in catholic syrian bank which is not
+in your application list so how can I upload my statement please solve this
+problem urgently thanks
+
+",shahid41470@gmail.com,Being Human,3641650,,,,2025-07-06 08:20:04,1,2025-05-21,2025-07-05,2025-07-05,27743629.0,17345322.0,SYEDAHMED,shahid41470@gmail.com,9346850097.0,ANDROID,"['PROFESSIONAL_DETAILS', 'REGISTRATION_FEES', 'BUREAU', 'FF', 'BANK_STATEMENT']",LOA-QH6VK5FR,0.0,LDC,CREATED,,LOA-QH6VK5FR,,False,True,OKAY_TO_PROCEED_1,FF MARKED LOAN AS NEXT,BANK_STATEMENT,IM,,,,,,,,,,,,Predisbursal_Loan_Query_BS_issue_Maximum_attempt_reach,23,0.1774524599313736,,True,shahid41470@gmail.com,['OKAY_TO_PROCEED_1'],3641650,58339
+0,Loan repayment,['cs@instamoney.app'],Others,"Hi team,
+I had taken loan. But not paid due to some personal legal issue.
+Registered mobile number and email is currently not working because it is
+given to police station due to fraud happened with me.
+So I request you to please share link for repayment on this mail id to
+clear the payment.
+Login details are
+9552395767
+hakepayal064@gmail.com
+
+Thank you.!
+
+Regards,
+Payal Hake
+
+",hakepayal2004@gmail.com,Payal Hake,3642481,,,,2025-07-07 08:27:57,0,,,,,,,,,,,,,,,,,,,,,temp,,,,,,,,,,,,,,Escalations_RBI-Cyber_cell_,2,0.3814604878425598,,False,,,3642481,58689
+5,I need settlement offer to close my loan and disabled my account,"['""CS InstaMoney"" <cs@instamoney.app>']",IM+,"Okay you don't stop if add balance in my account and bank cut the charges to bounce emi last time I think 10 to 15 K bank charges me and which is Great than my loan so you note this point I am not able to make payment anymore and ready to take whatever legal action and same thing today I report cyber cell and rbi portal regarding your application. When already i informed you did not enabled DND for 4 months when my financial problem resolved I will start paying my emi and you ask me documents I will never trust 0% because multiple time your agent call my contact no and harshed my contact and used abuse language that time I leave this point but now I will take legal action against you. 
+   
+  
+ Thanks and Regards 
+  Ravi Kumar Chaurasia  
+  
+ 
+    
+  
+ On Fri, 4 Jul, 2025, 11:58 pm CS InstaMoney, <cs@instamoney.app> wrote: 
+ 
+  
+	 
+ 
+ Dear Ravi  Thank you for your email. Please note that any delay in repaying your EMI will incur additional charges.  We kindly ask you to confirm the exact reason for the delay and provide any relevant documentation. This will assist us in making a more informed decision regarding your request. Additionally, please specify when you plan to make the repayment. 
+   
+ Additionally, we would also like to bring to your attention that we won't be able to deactivate your UPI mandate, because as we can see, you still have your two ongoing loans with us.  We strongly recommend making timely EMI payments to avoid penalties and negative impacts on your CIBIL report.  Thank you for your cooperation.  Best regards, Team InstaMoney   
+ 
+​Have a look at our FAQ's Click Here 
+ 
+ 
+ 
+                           
+                            On
+                            Thu, 3 Jul at  8:12 AM
+                            ,  Ravi Kumar Chaurasia <ravikashyap1118@gmail.com>  wrote:
+                             
+ And more things please stop the auto pay mode because it effect and charge of bounce of emi and when i add any amount of bank it cut my bounce charge last time I pay 10k for this issue if this time I face I am not pay your emi and I am ready to take chalange if you take whatever action and show rbi how you treat our customer. 
+   
+  
+ Thanks and Regards 
+  Ravi Kumar Chaurasia  
+  
+ 
+    
+  
+ On Wed, 2 Jul, 2025, 6:20 pm Ravi Kumar Chaurasia, <ravikashyap1118@gmail.com> wrote: 
+ 
+ 
+ 
+ Hi, 
+   
+ Okay so I informed you I will pay after August whatever emi but not pay any additional charges because I already informed my financial condition. Otherwise you give me settlement offer so I arranged and closed loan. And I already face your side abuse language from your customer care support team. Last time I leave this issue but now I informed you before going to delay payment of my emi but I face any harassment issue so this time I take action for your application and company. 
+   
+  
+ Thanks and Regards 
+  Ravi Kumar Chaurasia  
+  
+ 
+  
+ On Wed, 2 Jul, 2025, 3:16 pm CS InstaMoney, <cs@instamoney.app> wrote: 
+ 
+  
+	 
+ 
+ Dear Ravi,  Thank you for your email. Please note that any delay in repaying your EMI will incur additional charges.  We kindly ask you to confirm the exact reason for the delay and provide any relevant documentation. This will assist us in making a more informed decision regarding your request. Additionally, please specify when you plan to make the repayment. 
+   
+ Regarding your request for a one-time settlement, we regret to inform you that based on a review of your loan profile and repayment history, you are currently not eligible for a settlement offer   We strongly recommend making timely EMI payments to avoid penalties and negative impacts on your CIBIL report.  Thank you for your cooperation.  Best regards, Team InstaMoney  
+ Have a look at our FAQ's Click Here 
+ 
+ 
+ 
+                           
+                            On
+                            Tue, 1 Jul at  1:37 PM
+                            ,  Ravi Kumar Chaurasia <ravikashyap1118@gmail.com>  wrote:
+                             
+ 4 
+   
+  
+ Thanks and Regards 
+  Ravi Kumar Chaurasia  
+  
+ 
+    
+  
+ On Tue, 1 Jul, 2025, 1:27 pm CS InstaMoney, <cs@instamoney.app> wrote: 
+ 
+  
+	 Dear Customer, 
+             
+            Greetings of the day! 
+             
+            If you have a concern related to any of the following options, please choose one: 
+	     1. Cash Withdrawal
+	     2. Payment
+	     3. Available Limit
+	     4. Closure-related
+             5. Others (Non of the Above)
+             
+	     
+	    Thank you.
+	     
+	     
+            Best Regards, 
+            Customer Support 
+             
+            Have a look at our FAQ's https://bit.ly/2NsxH06 
+             
+             
+ *This is a system-generated email.",ravikashyap1118@gmail.com,Ravi Kumar Chaurasia,3642785,,,,2025-07-07 12:34:24,1,2024-03-05,2025-05-12,2025-05-14,20131635.0,1456832.0,RAVI KUMAR CHAURASIA,ravikashyap1118@gmail.com,9501079968.0,ANDROID,[''],LOA-ZXGK8UCQ,16000.0,LDC,DISBURSED,,LOA-ZXGK8UCQ,2025-05-14,True,True,,temp,,IM,YMMH1UTYCZ,LOA-ZXGK8UCQ,2025-05-14,DISBURSED,3267.07,16000.0,1244.7,6890.69,DELAYED_1,IM+,,Escalations_RBI-Cyber_cell_,10,0.2841655910015106,,False,ravikashyap1118@gmail.com,[nan],3642785,58763
