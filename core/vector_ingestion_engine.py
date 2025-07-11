@@ -85,16 +85,12 @@ class VectorIngestionEngine:
                     print(f"❌ Skipping data insert for sheet '{sheet_name}'")
                     continue
 
+                # Create a default schema for empty sheets
                 if df.empty:
-                    print(f"⚠️ Sheet '{sheet_name}' is empty, but collection created.")
-                    continue
-                
-                print(f"📊 DataFrame shape: {df.shape}")
-
-                # Create embeddings from Subject and Email Body only
-                texts = (df["subject"].fillna("") + " " + df["email_body"].fillna("")).tolist()
-                embeddings = self.embed_batch(texts)
-                print(f"🔍 Generated {len(embeddings)} vectors")
+                    # Create a default schema with minimal columns
+                    default_columns = REQUIRED_COLS if all(col in df.columns for col in REQUIRED_COLS) else ["default_text"]
+                    df = pd.DataFrame({col: [] for col in default_columns})
+                    print(f"📊 Creating empty collection for sheet '{sheet_name}'")
 
                 # Dynamically build schema based on this sheet's columns
                 schema = self._build_dynamic_schema(df)
@@ -102,12 +98,26 @@ class VectorIngestionEngine:
                 print(f"✅ Created collection '{collection_name}' with dynamic schema")
 
                 # Prepare data for insertion
-                insert_data = [embeddings]  # Start with embeddings
-                
-                # Add all metadata columns (excluding subject and email_body)
-                metadata_columns = [col for col in df.columns if col not in REQUIRED_COLS]
-                for col in metadata_columns:
-                    insert_data.append(df[col].fillna("").astype(str).tolist())
+                if df.empty:
+                    # For completely empty sheets, insert a dummy record
+                    insert_data = [
+                        [[0.0] * self.embedding_dim],  # Dummy embedding
+                    ]
+                    # Add dummy data for each column
+                    for col in df.columns:
+                        insert_data.append([""])
+                else:
+                    # Create embeddings from Subject and Email Body only
+                    texts = (df["subject"].fillna("") + " " + df["email_body"].fillna("")).tolist()
+                    embeddings = self.embed_batch(texts)
+                    print(f"🔍 Generated {len(embeddings)} vectors")
+
+                    # Prepare data for insertion
+                    insert_data = [embeddings]  # Start with embeddings
+                    
+                    # Add ALL columns as metadata
+                    for col in df.columns:
+                        insert_data.append(df[col].fillna("").astype(str).tolist())
 
                 # Insert data
                 collection.insert(insert_data)
@@ -115,7 +125,7 @@ class VectorIngestionEngine:
                     "metric_type": "COSINE", "index_type": "IVF_FLAT", "params": {"nlist": 128}
                 })
                 collection.load()
-                print(f"📥 Inserted {len(df)} vectors into '{collection_name}' with {len(metadata_columns)} metadata fields")
+                print(f"📥 Inserted {len(df)} vectors into '{collection_name}' with {len(df.columns)} metadata fields")
 
             except Exception as e:
                 print(f"❌ Error processing sheet '{sheet_name}': {e}")
@@ -175,7 +185,7 @@ class VectorIngestionEngine:
     def _build_dynamic_schema(self, df):
         """
         Dynamically build schema based on the DataFrame columns.
-        Only Subject and Email Body are used for embeddings, all other columns become metadata.
+        Includes Subject and Email Body as metadata fields, along with other columns.
         """
         # Start with ID and embedding fields
         fields = [
@@ -183,8 +193,8 @@ class VectorIngestionEngine:
             FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=self.embedding_dim)
         ]
         
-        # Add all columns as metadata fields (excluding the ones used for embeddings)
-        metadata_columns = [col for col in df.columns if col not in REQUIRED_COLS]
+        # Include all columns as metadata fields, including those used for embeddings
+        metadata_columns = list(df.columns)
         for col in metadata_columns:
             fields.append(FieldSchema(name=col, dtype=DataType.VARCHAR, max_length=MAX_VARCHAR_LEN))
         

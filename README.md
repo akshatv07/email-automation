@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Ticket Resolution System
 
 ## Prerequisites
@@ -90,7 +89,4 @@ result = engine.get_response(
 
 ## Troubleshooting
 - Ensure Docker is running before starting Milvus
-- Check Python and pip versions with `python --version` and `pip --version` 
-=======
-# emailauto
->>>>>>> 79eba28656c2afefd8f7421f1c5a97f1e2591b6a
+- Check Python and pip versions with `python --version` and `pip --version`

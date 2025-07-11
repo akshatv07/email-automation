@@ -168,9 +168,9 @@ def main():
     print("=" * 50)
     
     # Example inputs (you can modify these)
-    category = "predisbursal_loan_query_loan_ca_data"
+    category = "predisbursal_loan_query_loan_ca"
     subject_input = "loan cancel request"
-    status_input = "IMDisbursed"
+    status_input = "imdisbursed"
     
     print(f"📦 Collection: {category}")
     print(f"🔍 Subject: {subject_input}")

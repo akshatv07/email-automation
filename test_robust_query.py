@@ -89,7 +89,7 @@ def main():
     
     # Test 2: Collection existence
     print("\n2️⃣ Testing collection existence...")
-    collection_name = "predisbursal_loan_query_loan_ca_data"
+    collection_name = "predisbursal_loan_query_loan_ca"
     fields = test_collection_exists(collection_name)
     if not fields:
         print("❌ Cannot proceed - collection not found")
