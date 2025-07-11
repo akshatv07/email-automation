@@ -3,3 +3,4 @@ numpy
 sentence-transformers
 pymilvus
 openpyxl
+tabulate

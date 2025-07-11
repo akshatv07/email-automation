@@ -3,7 +3,7 @@ import json
 
 def main():
     data = process_ticket_metadata(
-        ticket_id="3634150",
+        ticket_id="3634228",
         subject="Query regarding loan",
         body="I want to know the status of my repayment",
         category="Loan Queries"

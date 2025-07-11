@@ -66,59 +66,127 @@ class VectorIngestionEngine:
                     print(f"ℹ️ Collection '{collection_name}' already exists. Dropping and recreating...")
                     utility.drop_collection(collection_name)
 
-                schema = self._build_schema(df)
-                collection = Collection(name=collection_name, schema=schema)
-                print(f"✅ Created collection '{collection_name}'")
-
                 # Check for required columns
-                if not all(col in df.columns for col in REQUIRED_COLS):
-                    print(f"❌ Missing required columns in '{sheet_name}', skipping data insert.")
+                print(f"🔍 Available columns in '{sheet_name}': {list(df.columns)}")
+                print(f"🔍 Required columns: {REQUIRED_COLS}")
+                
+                # Check if required columns exist (with case-insensitive matching)
+                missing_cols = []
+                for required_col in REQUIRED_COLS:
+                    if required_col not in df.columns:
+                        # Try to find similar column names
+                        similar_cols = [col for col in df.columns if required_col.lower() in col.lower() or col.lower() in required_col.lower()]
+                        if similar_cols:
+                            print(f"⚠️ Column '{required_col}' not found, but found similar: {similar_cols}")
+                        missing_cols.append(required_col)
+                
+                if missing_cols:
+                    print(f"❌ Missing required columns in '{sheet_name}': {missing_cols}")
+                    print(f"❌ Skipping data insert for sheet '{sheet_name}'")
                     continue
 
                 if df.empty:
                     print(f"⚠️ Sheet '{sheet_name}' is empty, but collection created.")
                     continue
+                
+                print(f"📊 DataFrame shape: {df.shape}")
 
-                # Combine and embed
-                df["query_text"] = df["subject"].astype(str) + " " + df["email_body"].astype(str)
-                df["query_text"] = df["query_text"].apply(lambda x: _truncate(x, MAX_VARCHAR_LEN))
-                vectors = self.embed_batch(df["query_text"].tolist())
+                # Create embeddings from Subject and Email Body only
+                texts = (df["subject"].fillna("") + " " + df["email_body"].fillna("")).tolist()
+                embeddings = self.embed_batch(texts)
+                print(f"🔍 Generated {len(embeddings)} vectors")
 
-                # Prepare row-wise data for insert
-                insert_data = []
-                for i, row in df.iterrows():
-                    row_data = [row["query_text"]]
-                    for col in df.columns:
-                        if col == "query_text":
-                            continue
-                        val = row.get(col, "")
-                        row_data.append(_truncate(val, MAX_VARCHAR_LEN))
-                    row_data.append(vectors[i])
-                    insert_data.append(row_data)
+                # Dynamically build schema based on this sheet's columns
+                schema = self._build_dynamic_schema(df)
+                collection = Collection(name=collection_name, schema=schema)
+                print(f"✅ Created collection '{collection_name}' with dynamic schema")
 
-                # Transpose to columnar format
-                columns = ["query_text"] + [col for col in df.columns if col != "query_text"] + ["embedding"]
-                milvus_data = list(map(list, zip(*insert_data)))
+                # Prepare data for insertion
+                insert_data = [embeddings]  # Start with embeddings
+                
+                # Add all metadata columns (excluding subject and email_body)
+                metadata_columns = [col for col in df.columns if col not in REQUIRED_COLS]
+                for col in metadata_columns:
+                    insert_data.append(df[col].fillna("").astype(str).tolist())
 
-                collection.insert(milvus_data)
+                # Insert data
+                collection.insert(insert_data)
                 collection.create_index("embedding", {
                     "metric_type": "COSINE", "index_type": "IVF_FLAT", "params": {"nlist": 128}
                 })
                 collection.load()
-                print(f"📥 Inserted {len(df)} vectors into '{collection_name}'")
+                print(f"📥 Inserted {len(df)} vectors into '{collection_name}' with {len(metadata_columns)} metadata fields")
 
             except Exception as e:
                 print(f"❌ Error processing sheet '{sheet_name}': {e}")
                 continue
 
-    def _build_schema(self, df):
+    def verify_collection(self, collection_name, limit=10):
+        """
+        Verify insertion by querying a collection and displaying the entire stored data table.
+        """
+        try:
+            if not utility.has_collection(collection_name):
+                print(f"❌ Collection '{collection_name}' does not exist")
+                return
+            
+            collection = Collection(collection_name)
+            collection.load()
+            
+            # Query all data
+            results = collection.query(
+                expr="id >= 0", 
+                output_fields=["*"], 
+                limit=limit
+            )
+            
+            print(f"\n📊 Verification Results for Collection '{collection_name}':")
+            print(f"Total records retrieved: {len(results)}")
+            
+            if results:
+                # Display first record structure
+                first_record = results[0]
+                print(f"\n📋 Record Structure:")
+                for key, value in first_record.items():
+                    if key == "embedding":
+                        print(f"  {key}: [Vector with {len(value)} dimensions]")
+                    else:
+                        # Truncate long text for display
+                        display_value = str(value)[:100] + "..." if len(str(value)) > 100 else str(value)
+                        print(f"  {key}: {display_value}")
+                
+                print(f"\n📋 All Records (showing first {limit}):")
+                for i, record in enumerate(results):
+                    print(f"\n--- Record {i+1} ---")
+                    for key, value in record.items():
+                        if key == "embedding":
+                            print(f"  {key}: [Vector with {len(value)} dimensions]")
+                        else:
+                            # Truncate long text for display
+                            display_value = str(value)[:200] + "..." if len(str(value)) > 200 else str(value)
+                            print(f"  {key}: {display_value}")
+            
+            return results
+            
+        except Exception as e:
+            print(f"❌ Error verifying collection '{collection_name}': {e}")
+            return None
+
+    def _build_dynamic_schema(self, df):
+        """
+        Dynamically build schema based on the DataFrame columns.
+        Only Subject and Email Body are used for embeddings, all other columns become metadata.
+        """
+        # Start with ID and embedding fields
         fields = [
             FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-            FieldSchema(name="query_text", dtype=DataType.VARCHAR, max_length=MAX_VARCHAR_LEN)
+            FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=self.embedding_dim)
         ]
-        for col in df.columns:
-            if col == "query_text":
-                continue
+        
+        # Add all columns as metadata fields (excluding the ones used for embeddings)
+        metadata_columns = [col for col in df.columns if col not in REQUIRED_COLS]
+        for col in metadata_columns:
             fields.append(FieldSchema(name=col, dtype=DataType.VARCHAR, max_length=MAX_VARCHAR_LEN))
-        fields.append(FieldSchema(name="embedding", dtype=DataType.FLOAT_VECTOR, dim=self.embedding_dim))
+        
+        print(f"🔧 Dynamic schema created with {len(metadata_columns)} metadata fields: {metadata_columns}")
         return CollectionSchema(fields) 
