@@ -1,0 +1,24 @@
+﻿{
+    "metadata":  {
+                     "collection":  "predisbursal_loan_query_credit",
+                     "timestamp":  "2025-07-11T12:30:00.000000",
+                     "results_count":  1,
+                     "status_field":  "im_processing"
+                 },
+    "results":  [
+                    {
+                        "status":  "Under Review",
+                        "rank":  1,
+                        "fields":  {
+                                       "application_date":  "2025-07-10",
+                                       "subject":  "Loan Application Status",
+                                       "email_body":  "Your loan application is currently under review. This process typically takes 24-48 hours. We\u0027ll notify you once there\u0027s an update.",
+                                       "loan_amount":  "50,000",
+                                       "status":  "Under Review",
+                                       "customer_id":  "CUST12345"
+                                   },
+                        "id":  "12345",
+                        "distance":  0.92
+                    }
+                ]
+}
