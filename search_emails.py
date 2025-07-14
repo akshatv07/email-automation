@@ -28,19 +28,25 @@ def format_search_results(results: List[Dict], collection_name: str, status_fiel
     for i, hit in enumerate(results):
         result = {
             "rank": i + 1,
-            "id": str(hit.id) if hasattr(hit, 'id') else None,
-            "distance": float(hit.distance) if hasattr(hit, 'distance') else None,
+            "id": str(hit.get("id", None)),
+            "distance": float(hit.get("distance", 0.0)) if "distance" in hit else None,
             "status": None,
             "fields": {}
         }
         
         # Extract entity data
-        if hasattr(hit, 'entity') and hasattr(hit.entity, '_row_data'):
-            entity = hit.entity._row_data
-            for field_name, value in entity.items():
+        entity = hit.get("entity", None)
+        if entity and hasattr(entity, '_row_data'):
+            for field_name, value in entity._row_data.items():
                 result["fields"][field_name] = str(value)
                 if field_name.lower() == status_field.lower():
                     result["status"] = str(value)
+        elif isinstance(hit, dict):
+            for field_name, value in hit.items():
+                if field_name not in ["id", "distance", "entity"]:
+                    result["fields"][field_name] = str(value)
+                    if field_name.lower() == status_field.lower():
+                        result["status"] = str(value)
         
         formatted["results"].append(result)
     
@@ -85,7 +91,7 @@ def search_emails(
     email_body: str,
     subject: str,
     category: str,
-    status_field: str,
+    status_field: str = "",
     top_k: int = 1,
     return_json: bool = False
 ) -> Union[Dict[str, Any], str, None]:
@@ -155,13 +161,20 @@ def search_emails(
         return None
     
     # Get the correct status field name
-    status_field, has_status = get_status_field(collection, status_field)
-    if not has_status:
-        print(f"❌ Status field '{status_field}' not found in collection")
-        return None
-        
-    # Prepare output fields - include all fields for debugging
-    output_fields = [status_field, 'subject', 'email_body']
+    status_field_name = status_field
+    status_field, has_status = ("", False)
+    if status_field_name:
+        status_field, has_status = get_status_field(collection, status_field_name)
+        if not has_status:
+            print(f"⚠️  Status field '{status_field_name}' not found in collection. Proceeding without status field filter.")
+            status_field = ""
+    else:
+        print("ℹ️  No status field specified. Proceeding without status field filter.")
+    
+    # Prepare output fields - always include subject and email_body
+    output_fields = ['subject', 'email_body']
+    if status_field:
+        output_fields.insert(0, status_field)
     print(f"Will retrieve fields: {output_fields}")
     
     # Search in the collection - search in both subject and body
@@ -191,16 +204,44 @@ def search_emails(
                 output_fields=output_fields
             )
             
-            print(f"\n🔍 Search completed. Found {len(search_results[0]) if search_results[0] else 0} results.")
+            if not isinstance(search_results, list):
+                try:
+                    search_results = list(search_results)
+                except Exception:
+                    search_results = []
+            # Ensure each result set (hits) is a list
+            hits = []
+            if search_results and len(search_results) > 0:
+                sr0 = search_results[0]
+                if hasattr(sr0, '__iter__') and not isinstance(sr0, list):
+                    try:
+                        hits = list(sr0)
+                    except Exception:
+                        hits = []
+                elif isinstance(sr0, list):
+                    hits = sr0
+                else:
+                    hits = []
+            print(f"\n🔍 Search completed. Found {len(hits)} results.")
             
             # Debug: Print raw search results structure
-            print("\n🔍 Raw search results structure:")
-            for i, hits in enumerate(search_results):
-                print(f"  - Result set {i}: {len(hits)} hits")
-                for j, hit in enumerate(hits):
-                    print(f"    - Hit {j}: ID={hit.id}, Distance={hit.distance}")
-                    if hasattr(hit, 'entity') and hasattr(hit.entity, '_row_data'):
-                        print(f"      Entity fields: {list(hit.entity._row_data.keys())}")
+            print("\n�� Raw search results structure:")
+            for i, result_set in enumerate(search_results):
+                if not isinstance(result_set, list):
+                    try:
+                        result_set = list(result_set)
+                    except Exception:
+                        result_set = []
+                print(f"  - Result set {i}: {len(result_set)} hits")
+                for j, hit in enumerate(result_set):
+                    hit_id = hit.get("id", None) if isinstance(hit, dict) else getattr(hit, "id", None)
+                    hit_distance = hit.get("distance", None) if isinstance(hit, dict) else getattr(hit, "distance", None)
+                    print(f"    - Hit {j}: ID={hit_id}, Distance={hit_distance}")
+                    entity = hit.get("entity", None) if isinstance(hit, dict) else getattr(hit, "entity", None)
+                    if entity and hasattr(entity, '_row_data'):
+                        print(f"      Entity fields: {list(entity._row_data.keys())}")
+                    elif isinstance(hit, dict):
+                        print(f"      Fields: {list(hit.keys())}")
                     else:
                         print("      No entity data found")
         except Exception as e:
@@ -210,8 +251,19 @@ def search_emails(
             raise
         
         # Format the results
-        formatted_results = format_search_results(search_results[0], category, status_field)
-        
+        if hits:
+            formatted_results = format_search_results(hits, category, status_field if status_field else "")
+        else:
+            formatted_results = format_search_results([], category, status_field if status_field else "")
+
+        # Check for empty subject and email_body in the top result
+        if formatted_results["results"]:
+            top_result = formatted_results["results"][0]
+            subject = top_result["fields"].get("subject", "")
+            email_body = top_result["fields"].get("email_body", "")
+            if not subject.strip() and not email_body.strip():
+                return "Subject and email body are empty for this result."
+
         if return_json:
             return json.dumps(formatted_results, indent=2)
         
