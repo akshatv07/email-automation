@@ -1,0 +1,20 @@
+{
+    "metadata": {
+      "collection": "predisbursal_loan_query_loan_ca",
+      "status_field": "status",
+      "results_count": 1
+    },
+    "results": [
+      {
+        "rank": 1,
+        "id": "12345",
+        "distance": 0.01,
+        "status": "imdisbursedregular",
+        "fields": {
+          "subject": "Loan Disbursed",
+          "email_body": "Your loan has been disbursed and is now active.",
+          "status": "imdisbursedregular"
+        }
+      }
+    ]
+  }

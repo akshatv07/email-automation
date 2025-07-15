@@ -13,8 +13,8 @@ def cosine_similarity(a, b):
 def main():
     parser = argparse.ArgumentParser(description="Vector search Milvus collection by subject+email body and return closest match's subject, email_body, and a metadata field.")
     parser.add_argument('--collection', type=str, required=True, help='Collection name to search in')
-    parser.add_argument('--subject', type=str, required=True, help='Subject to search for')
-    parser.add_argument('--body', type=str, default='', help='Email body to search for (optional)')
+    parser.add_argument('--subject', type=str, required=False, help='Subject to search for (optional)')
+    parser.add_argument('--body', type=str, required=False, help='Email body to search for (optional)')
     parser.add_argument('--metadata', type=str, required=True, help='Metadata field name to return')
     parser.add_argument('--top-k', type=int, default=1, help='Number of top results to return (default: 1)')
     parser.add_argument('--json', action='store_true', help='Output results as JSON in email_responder.py-compatible format')
@@ -26,12 +26,32 @@ def main():
 
     # Check if collection exists
     if not utility.has_collection(args.collection):
-        print(f"Collection '{args.collection}' not found.")
+        error_msg = f"Collection '{args.collection}' not found."
+        if args.json and args.output:
+            output_dict = {'error': error_msg}
+            with open(args.output, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(output_dict, ensure_ascii=False, indent=2))
+            print(f"JSON error written to {args.output}")
+        else:
+            print(error_msg)
         return
 
     # Load collection
     collection = Collection(args.collection)
     collection.load()
+
+    # Check if metadata field exists
+    field_names = [f.name for f in collection.schema.fields]
+    if args.metadata not in field_names:
+        error_msg = f"Field '{args.metadata}' not found in collection '{args.collection}'. Available fields: {field_names}"
+        if args.json and args.output:
+            output_dict = {'error': error_msg}
+            with open(args.output, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(output_dict, ensure_ascii=False, indent=2))
+            print(f"JSON error written to {args.output}")
+        else:
+            print(error_msg)
+        return
 
     # Find vector field
     vector_fields = [f for f in collection.schema.fields if f.dtype == 101]
@@ -41,12 +61,19 @@ def main():
     vector_field = vector_fields[0]
     expected_dim = vector_field.params.get('dim', 384)
 
-    # Generate embedding for subject+body (or just subject if body is empty)
+    # Generate embedding for search
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    if args.body.strip():
-        query_text = args.subject + ' ' + args.body
+    subject = args.subject.strip() if args.subject else ''
+    body = args.body.strip() if args.body else ''
+    if subject and body:
+        query_text = subject + ' ' + body
+    elif subject:
+        query_text = subject
+    elif body:
+        query_text = body
     else:
-        query_text = args.subject
+        print("At least one of subject or body must be provided.")
+        return
     embedding = model.encode([query_text])[0].tolist()
     if len(embedding) != expected_dim:
         if len(embedding) > expected_dim:
@@ -77,7 +104,14 @@ def main():
             results = []
     # Print results
     if not isinstance(results, list) or len(results) == 0:
-        print("No matching records found.")
+        no_match_msg = f"No matching records found in collection '{args.collection}' for field '{args.metadata}'."
+        if args.json and args.output:
+            output_dict = {'error': no_match_msg}
+            with open(args.output, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(output_dict, ensure_ascii=False, indent=2))
+            print(f"JSON error written to {args.output}")
+        else:
+            print(no_match_msg)
         return
     hits = results[0]
     if hasattr(hits, '__iter__') and not isinstance(hits, list):
@@ -86,7 +120,14 @@ def main():
         except Exception:
             hits = []
     if not isinstance(hits, list) or len(hits) == 0:
-        print("No matching records found.")
+        no_match_msg = f"No matching records found in collection '{args.collection}' for field '{args.metadata}'."
+        if args.json and args.output:
+            output_dict = {'error': no_match_msg}
+            with open(args.output, 'w', encoding='utf-8') as f:
+                f.write(json.dumps(output_dict, ensure_ascii=False, indent=2))
+            print(f"JSON error written to {args.output}")
+        else:
+            print(no_match_msg)
         return
     for i, hit in enumerate(hits, 1):
         entity = hit.get('entity', {})
@@ -94,13 +135,11 @@ def main():
         # Prepare the texts
         result_subject = entity.get('subject', '')
         result_body = entity.get('email_body', '')
-        query_text = (args.subject + ' ' + args.body).strip()
+        # For similarity, use the same logic as above
         result_text = (result_subject + ' ' + result_body).strip()
-        # Generate embeddings
         query_emb = model.encode([query_text])[0]
         result_emb = model.encode([result_text])[0]
-        # Compute similarity
-        similarity = cosine_similarity(query_emb, result_emb)
+        similarity = dot(query_emb, result_emb) / (norm(query_emb) * norm(result_emb))
         matchness = similarity * 100
         print(f"{args.metadata}: {metadata_value}")
         print(f"Similarity Score: {matchness:.2f}% ")
