@@ -1,20 +1,20 @@
 {
   "metadata": {
-    "collection": "predisbursal_loan_query_credit",
-    "query_subject": "Loan disbursement",
-    "query_body": "When will my loan amount be credited to my account? Please update me on the disbursement status.",
+    "collection": "update_edit_details_bank_accou",
+    "query_subject": "Bank account mobile number another number how to enter? Eny edit option?",
+    "query_body": "Bank account mobile number another number how to enter? Eny edit option?",
     "top_k": 1,
     "results_count": 1
   },
   "results": [
     {
       "rank": 1,
-      "id": 459398807497001663,
-      "distance": 0.6839368939399719,
+      "id": 459398807497001792,
+      "distance": 1.0000001192092896,
       "fields": {
-        "subject": "I am not received my disbursement",
-        "email_body": "When was my account credited in my account ",
-        "improcessing": "Dear User,\n\nThank you for contacting us again. We completely understand your concern about not yet receiving your loan amount, and we appreciate you staying patient with us.\n\nWe'd like to confirm that your loan application is currently listed and in the funding process. This means we are actively working on securing and preparing your funds for disbursement.\n\nYou can expect an update on your loan's progress very soon. Please also remember to check your registered email regularly, as we'll use it to notify you if any further documents are required from your end to complete this stage.\n\nWe're striving to get your funds to you as quickly as possible.\n\nShould you have any other questions, please don't hesitate to ask.\n\nBest Regards,\nTeam Instamoney"
+        "email_body": "Bank account mobile number another number how to enter? Eny edit option?",
+        "imdisbursedregular": "Dear Customer,\n\nThank you for your message.\n\nSince your account has no dues, we can assist you in updating the bank account mobile number or other bank details.\n\nPlease email us a 90-day bank statement (PDF format) for your updated bank account. The statement must clearly show:\n\nYour name\nAccount number\nIFSC code\n\nIf you're salaried, please also share your salary credit date (we require at least 2 salary credits). If you're self-employed, just the bank statement will suffice.\n\nOnce received, we’ll update your details accordingly.\n\nBest Regards,\nTeam InstaMoney",
+        "subject": "Bank account mobile number another number how to enter? Eny edit option?"
       }
     }
   ]

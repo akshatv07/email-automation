@@ -132,6 +132,7 @@ def main():
         }
         output_json = json.dumps(output_dict, ensure_ascii=False, indent=2)
         if args.output:
+            # Always overwrite the output file with new results
             with open(args.output, 'w', encoding='utf-8') as f:
                 f.write(output_json)
             print(f"JSON results written to {args.output}")

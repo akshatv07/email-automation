@@ -6,6 +6,7 @@ from typing import Dict, Any, Optional, List, Union
 from dotenv import load_dotenv
 import google.generativeai as genai
 from prompt_templates import get_prompt
+import time
 
 # Load environment variables
 load_dotenv()
@@ -15,8 +16,8 @@ class EmailTemplateGenerator:
         # LLM Configuration
         self.llm_config = {
             'api_key': 'AIzaSyBYvn_uYjajkf7_ELjqzsY2o0awESsqjSg',  # Using the provided API key
-            'model': 'gemini-1.5-flash',
-            'max_output_tokens': 1000,
+            'model': 'gemini-2.0-flash',
+            'max_output_tokens': 2000,
             'temperature': 0.3
         }
         
@@ -99,6 +100,8 @@ Guidelines:
 
 Please draft an email response based on the above information:"""
             
+            # Add timing
+            start_time = time.time()
             # Generate response using Gemini
             response = self.model.generate_content(
                 prompt,
@@ -107,6 +110,8 @@ Please draft an email response based on the above information:"""
                     max_output_tokens=self.llm_config['max_output_tokens']
                 )
             )
+            elapsed = time.time() - start_time
+            print(f"Time to generate LLM response: {elapsed:.2f} seconds")
             
             # Extract the generated text safely
             try:

@@ -1,5 +1,52 @@
 import pandas as pd
 
+# Category sanitization mapping
+CATEGORY_SANITIZATION_MAP = {
+    "predisbursal_loan_query_loan_cancellation_request": "predisbursal_loan_query_loan_ca",
+    "collection_query": "collection_query",
+    "data_erasure_request__": "data_erasure_request",
+    "predisbursal_loan_query_credit_team_action_pending": "predisbursal_loan_query_credit",
+    "predisbursal_loan_query_loan_approved_disbursed": "predisbursal_loan_query_loan_ap",
+    "predisbursal_loan_query_other_bs_isssues": "predisbursal_loan_query_other_b",
+    "predisbursal_loan_query_bs_issue_maximum_attempt_reach": "predisbursal_loan_query_bs_issu",
+    "predisbursal_loan_query_im+_instances_loc-live-withdrawal_request_placed": "predisbursal_loan_query_im_inst",
+    "post_loan_closure_queries_surrender_of_im+limit": "post_loan_closure_queries_surre",
+    "post_loan_disbursal_query_basic_emi_-ecs_details_emi_amount": "post_loan_disbursal_query_basic",
+    "post_loan_closure_queries": "post_loan_closure_queries",
+    "post_loan_disbursal_query_basic_emi_-ecs_details_ecs_approved,_but_not_triggered": "post_loan_disbursal_query_bas_1",
+    "post_loan_disbursal_query_payment_ecs_payment": "post_loan_disbursal_query_payme",
+    "post_loan_disbursal_query": "post_loan_disbursal_query",
+    "post_loan_disbursal_query_basic_emi_-ecs_details_ecs_status": "post_loan_disbursal_query_bas_2",
+    "canceled_loan_checking_for_reason_": "canceled_loan_checking_for_reas",
+    "post_loan_disbursal_query_basic_emi_-ecs_details_emi_date_change_request": "post_loan_disbursal_query_bas_3",
+    "update_-_edit_details_bank_account_details_": "update_edit_details_bank_accou",
+    "update_-_edit_details_mobile_number": "update_edit_details_mobile_num",
+    "update_-_edit_details_email_id": "update_edit_details_email_id",
+    "post_loan_disbursal_query_basic_emi_-ecs_details_loan_closure_amount": "post_loan_disbursal_query_bas_4",
+    "post_loan_disbursal_query_payment_dual_payment_not_updated": "post_loan_disbursal_query_pay_1",
+    "post_loan_disbursal_query_payment_refund_request": "post_loan_disbursal_query_pay_2",
+    "predisbursal_loan_query_general_info": "predisbursal_loan_query_general",
+    "predisbursal_loan_query_im+_instances": "predisbursal_loan_query_im_in_1",
+    "predisbursal_loan_query_incomplete_profile": "predisbursal_loan_query_incompl",
+    "predisbursal_loan_query_loan_approved_disbursal_in_progress": "predisbursal_loan_approved_disb",
+    "stop_marketing_sms-emails_details_added_in_the_sheet_": "stop_marketing_sms_emails_detai",
+    "unregistered-no_content_registered_credentials_needed": "unregistered_no_content_registe",
+    "collection_queries_settlement_query": "collection_queries_settlement_q",
+    "post_loan_closure_queries_credit_report_issues": "post_loan_closure_queries_credi",
+    "post_loan_closure_queries_loan_related_documents_required_": "post_loan_closure_queries_loan",
+    "predisbursal_loan_query_kyc_issue_pan-aadhar_exists": "predisbursal_loan_query_kyc_iss",
+    "predisbursal_loan_query_nach_issue_general_information": "predisbursal_loan_query_nach_is",
+    "predisbursal_loan_query_nach_issue_unable_to_proceed_enach": "predisbursal_loan_query_nach_1",
+    "predisbursal_loan_query_rf-vf_query_general_information": "predisbursal_loan_query_rf_vf_q",
+    "predisbursal_loan_query_rf-vf_query_rf-vf_paid_not_updated": "predisbursal_loan_query_rf_vf_p",
+    "rejected_loan_cancel_enach_": "rejected_loan_cancel_enach",
+    "rejected_loan_checking_for_reason": "rejected_loan_checking_for_reas",
+    "rejected_loan_requesting_for_refund_": "rejected_loan_requesting_for_re",
+    "rejected_loan_wants_to_re-apply-re-consider": "rejected_loan_wants_to_re_apply",
+    "update_-_edit_details_address": "update_edit_details_address",
+    "update_-_edit_details_name": "update_edit_details_name"
+}
+
 def process_ticket_metadata(ticket_id: str) -> dict:
     """
     Process ticket metadata from the data/datadb.csv file.
@@ -44,7 +91,8 @@ def process_ticket_metadata(ticket_id: str) -> dict:
         'repayment_status', 
         'last_stage_checklist',
         'lr_status', 
-        'disbursement_completion_date'
+        'disbursement_completion_date',
+        'new'  # Added new column
     ]
     
     # Extract status from all specified columns
@@ -59,11 +107,14 @@ def process_ticket_metadata(ticket_id: str) -> dict:
     # Create single line status based on IM value and status combination
     single_line_status = create_single_line_status(im_value, status, row)
     
+    # Sanitize category
+    raw_category = str(row.get('new', '')).lower() if row is not None else ''
+    sanitized_category = CATEGORY_SANITIZATION_MAP.get(raw_category, raw_category)
+    
     # Construct and return the result dictionary
     return {
-        "ticket_id": ticket_id,
         "status": single_line_status,
-        "im": im_value
+        "category": sanitized_category
     }
 
 def create_single_line_status(im_value: str, status_list: list, row) -> str:
@@ -161,4 +212,10 @@ def input_and_process_ticket():
 
 # Allow the script to be run directly for ticket input
 if __name__ == "__main__":
-    input_and_process_ticket()
+    import argparse
+    import json
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ticket-id', type=str, required=True, help='Ticket ID to process')
+    args = parser.parse_args()
+    ticket_info = process_ticket_metadata(args.ticket_id)
+    print(json.dumps(ticket_info))
