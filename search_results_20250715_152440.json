@@ -1,3 +1,0 @@
-{
-  "error": "Field 'imunderreview' not found in collection 'predisbursal_loan_query_credit'. Available fields: ['id', 'embedding', 'subject', 'email_body', 'imsanctioned', 'improcessing', 'im_listed', 'im_processing']"
-}

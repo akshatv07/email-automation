@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "collection": "rejected_loan_requesting_for_re",
+    "query_subject": "My loan application is rejected please refund my fee 199",
+    "query_body": "My loan application is rejected please refund my fee 199",
+    "top_k": 1,
+    "results_count": 1
+  },
+  "results": [
+    {
+      "rank": 1,
+      "id": 459444252307744791,
+      "distance": 0.7721143960952759,
+      "fields": {
+        "imrejected": "Dear [Customer Name],\n\nThank you for reaching out to us.\n\nWe understand your request for a refund of the Rs. 199 registration fee. Please allow us to clarify that this fee is charged to cover the costs involved in processing your loan application, including credit evaluation, verification, and system checks carried out by our lending partners.\n\nAs mentioned in our Terms of Service, this registration fee is non-refundable, regardless of whether the loan is approved or rejected. This is because the fee is used to carry out the necessary verification and assessment each time an application is submitted.\n\nWe appreciate your understanding in this matter. You are always welcome to apply again, and we encourage you to ensure your credit and financial details are accurate to improve your chances of approval.\n\nPlease let us know if you have any further questions.\n\nBest regards,\nTeam Instamoney",
+        "subject": "Hello, I have paid 199 amount to get a loan,I didn't get a loan from you, so please give a refund amount of 200 immediately.",
+        "email_body": "Please give a refund of 199 that I paid to you."
+      }
+    }
+  ]
+}

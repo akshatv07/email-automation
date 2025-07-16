@@ -63,15 +63,24 @@ def process_ticket_metadata(ticket_id: str) -> dict:
         row = df[df['ticket_id'].astype(str) == ticket_id]
     row = row.iloc[0] if not row.empty else None
 
-    # New logic: check data_from_IM
+    # New logic: check data_from (IM value)
     if row is not None:
-        data_from_im = str(row.get('data_from_IM', '')).strip()
+        data_from_im = str(row.get('data_from', '')).strip()
         if data_from_im and data_from_im.lower() != 'nan':
+            # Gather status list for processing
+            status_list = []
             loan_status = str(row.get('Loan Status', '')).strip()
             repayment_status = str(row.get('repayment_status', '')).strip()
-            status = loan_status
-            if repayment_status:
-                status += f'_{repayment_status}'
+            if loan_status and loan_status.lower() != 'nan':
+                status_list.append(loan_status)
+            if repayment_status and repayment_status.lower() != 'nan':
+                status_list.append(repayment_status)
+            # Fallback to lr_status if status_list is empty
+            if not status_list:
+                lr_status = str(row.get('lr_status', '')).strip()
+                if lr_status and lr_status.lower() != 'nan':
+                    status_list.append(lr_status)
+            status = create_single_line_status(data_from_im, status_list, row)
             return {
                 "status": status,
                 "category": str(row.get('new', '')).lower()

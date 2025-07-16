@@ -1,0 +1,21 @@
+{
+  "metadata": {
+    "collection": "rejected_loan_requesting_for_re",
+    "query_subject": "3194300",
+    "query_body": "3194300",
+    "top_k": 1,
+    "results_count": 1
+  },
+  "results": [
+    {
+      "rank": 1,
+      "id": 459444252307744798,
+      "distance": 0.2621195614337921,
+      "fields": {
+        "subject": "U people send message and call telling that I hv been approved and apply for loan when I apply after paying 249/- i will rejects",
+        "email_body": "Sending approval message and calling me about approval after taking 249/- u will reject then what about my amount ",
+        "imrejected": "Dear [Customer Name],\n\nThank you for sharing your concern with us.\n\nWe understand how frustrating it must be to receive loan approval messages and then face rejection after applying and paying the registration fee. We apologize for the confusion this may have caused.\n\nPlease note that pre-approval messages are based on initial eligibility checks. However, the final decision is taken only after a complete evaluation of your application, including detailed credit checks and verification by our lending partners. The registration fee is charged to cover this process and is non-refundable, as stated in our Terms of Service.\n\nWe truly regret any inconvenience caused and assure you that there is no intention to mislead our users. Your feedback is important to us, and we will forward it to the concerned team for review and improvement.\n\nIf you wish, you can reapply in the future, ensuring that your credit score and documents are updated for a better chance of approval.\n\nThank you for your understanding. Please let us know if you need any further assistance.\n\nBest regards,\nTeam Instamoney"
+      }
+    }
+  ]
+}

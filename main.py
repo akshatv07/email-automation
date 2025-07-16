@@ -5,6 +5,7 @@ import json
 import pandas as pd
 import logging
 from datetime import datetime
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -20,6 +21,7 @@ logging.basicConfig(
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 from config import settings
+from core.data_db_processor import CATEGORY_SANITIZATION_MAP
 
 # === GLOBAL PLACEHOLDERS ===
 EMAIL_BODY = "Hi team , I want to change my Bank account, pls help me with this. Thanks Abhishek R 9880804843"
@@ -71,11 +73,37 @@ def run_email_responder(search_results_file, subject, ticket_id=''):
         'python', 'email_responder.py',
         search_results_file,
         '--subject', subject,
-        '--ticket-id', ticket_id
+        '--ticket-id', ticket_id,
+        '--format', 'json'
     ]
     stdout = run_subprocess(cmd, "email_responder")
     logging.info("email_responder complete. Generated response.")
-    return stdout
+    # Find the first '{' and parse from there
+    start = stdout.find('{')
+    if start != -1:
+        try:
+            result = json.loads(stdout[start:])
+            if result.get('status') == 'success':
+                email_body = result.get('email_response', '').strip()
+                # Post-process to remove any leading 'Email Body:' and blank lines
+                import re
+                email_body = re.sub(r'^(email body:)[ \t]*\n*', '', email_body, flags=re.IGNORECASE)
+                return email_body
+            else:
+                return f"Error: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            return f"Error parsing email_responder output: {e}"
+    else:
+        return f"Error: Could not find JSON in email_responder output"
+
+def sanitize_input(input_str):
+    # Remove or escape special characters that might cause issues in shell commands
+    if input_str is None:
+        return ''
+    return input_str.replace('"', '\\"').replace('`', '\`').replace('$', '\$')
+
+def milvus_sanitize(name):
+    return re.sub(r'[^a-zA-Z0-9_]', '_', name)
 
 def main(input_file='test_data.csv', resume=False):
     logging.info(f"Starting batch processing from {input_file}")
@@ -130,11 +158,18 @@ def main(input_file='test_data.csv', resume=False):
             # Step 1: Get status and category
             try:
                 status, category = run_data_db_processor(ticket_id)
-                
-                # Convert 'im_closed' to 'imclosed'
                 if status == 'im_closed':
                     logging.info(f"Converting status from 'im_closed' to 'imclosed'")
                     status = 'imclosed'
+                # Sanitize inputs as in manual_email_processor.py
+                category = sanitize_input(category)
+                subject = sanitize_input(subject)
+                email_body = sanitize_input(email_body)
+                status = sanitize_input(status)
+                # Milvus-compliant collection name
+                category = milvus_sanitize(category)
+                # Map to Milvus collection name if needed
+                category = CATEGORY_SANITIZATION_MAP.get(category, category)
             except Exception as e:
                 response = f"Failed at data_db_processor: {str(e)}"
                 logging.error(response)
@@ -173,70 +208,98 @@ def main(input_file='test_data.csv', resume=False):
                 logging.error(response)
             else:
                 # Step 2: Search for template
-                template_subject = ''
-                template_error_reason = ''
+                template_referred = ''
+                response_generated = ''
+                template_text = ''
                 try:
                     search_results_stdout = run_search_db_by_field(category, subject, email_body, status)
-                    # Try to extract template subject or error from stdout
+                    # Try to parse JSON output from search_db_by_field
+                    search_data = None
                     try:
-                        search_data = None
+                        search_data = json.loads(search_results_stdout)
+                    except Exception:
+                        pass
+                    if (
+                        search_data and 'results' in search_data and isinstance(search_data['results'], list) and
+                        len(search_data['results']) > 0 and
+                        'fields' in search_data['results'][0] and
+                        status in search_data['results'][0]['fields'] and
+                        search_data['results'][0]['fields'][status]
+                    ):
+                        # Valid search result, use the search results JSON (from stdout) for email_responder
+                        template_referred = f"used template from search({category})"
                         try:
-                            search_data = json.loads(search_results_stdout)
-                        except Exception:
-                            pass
-                        if search_data and 'error' in search_data:
-                            template_error_reason = search_data['error']
-                        elif search_data and 'results' in search_data and isinstance(search_data['results'], list) and len(search_data['results']) > 0 and 'fields' in search_data['results'][0] and 'subject' in search_data['results'][0]['fields']:
-                            template_subject = search_data['results'][0]['fields']['subject']
-                        elif 'No matching records found' in search_results_stdout:
-                            template_error_reason = 'No matching records found in search results.'
-                        elif 'not found' in search_results_stdout:
-                            template_error_reason = search_results_stdout.strip()
-                    except Exception as e:
-                        template_error_reason = f'Error extracting template subject: {e}'
-                except Exception as e:
-                    template_error_reason = str(e)
-                    logging.error(f"No template found: {template_error_reason}")
-                    results.append({
-                        'ticket': ticket_id,
-                        'subject': subject,
-                        'email_body': email_body,
-                        'Response Generated': f"No template found: {template_error_reason}",
-                        'Template referred': template_subject
-                    })
-                    continue
-                if template_error_reason:
-                    results.append({
-                        'ticket': ticket_id,
-                        'subject': subject,
-                        'email_body': email_body,
-                        'Response Generated': f"No template found: {template_error_reason}",
-                        'Template referred': template_subject
-                    })
-                    continue
-                # Step 3: Generate LLM response
-                responder_subject = subject
-                if responder_subject.lower() == 'nan' or responder_subject.strip() == '' or responder_subject == 'none':
-                    if email_body and email_body.lower() != 'nan' and email_body.strip() != '' and email_body.lower() != 'none':
-                        responder_subject = email_body
+                            import tempfile
+                            # Write the search_results_stdout (JSON string) to a temp file
+                            with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
+                                tmpf.write(search_results_stdout)
+                                tmpf.flush()
+                                tmpf_name = tmpf.name
+                            try:
+                                response_generated = run_email_responder(tmpf_name, subject, ticket_id)
+                            finally:
+                                os.unlink(tmpf_name)
+                        except Exception as e:
+                            response_generated = f"Failed to run email_responder: {e}"
                     else:
-                        responder_subject = '[No Subject Provided]'
-                try:
-                    resp = run_email_responder(search_results_stdout, responder_subject, ticket_id)
-                    response = resp if resp else "Response generated successfully."
+                        # Fallback: use template
+                        template_filename = f"{category}.html"
+                        template_path = os.path.join("templates", template_filename)
+                        if os.path.exists(template_path):
+                            with open(template_path, "r", encoding="utf-8") as tf:
+                                template_text = tf.read()
+                            template_referred = "fallback template used"
+                        else:
+                            template_text = ''
+                            template_referred = "fallback template used"
+                        # Create a temp JSON file in the expected format
+                        if template_text:
+                            import tempfile
+                            temp_json = {
+                                "results": [
+                                    {
+                                        "fields": {
+                                            "fallback": template_text
+                                        }
+                                    }
+                                ]
+                            }
+                            with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
+                                import json as _json
+                                _json.dump(temp_json, tmpf, ensure_ascii=False)
+                                tmpf.flush()
+                                tmpf_name = tmpf.name
+                            try:
+                                response_generated = run_email_responder(tmpf_name, subject, ticket_id)
+                            finally:
+                                os.unlink(tmpf_name)
+                    # Always append the result with the current template_referred and response_generated
+                    if not template_referred:
+                        template_referred = "unknown"
+                    print(f"DEBUG: Appending result with template_referred='{template_referred}'")
+                    results.append({
+                        'ticket': ticket_id,
+                        'subject': subject,
+                        'email_body': email_body,
+                        'Response Generated': response_generated,
+                        'Template referred': template_referred
+                    })
                 except Exception as e:
-                    response = f"Failed to generate response: {str(e)}"
+                    response = f"Failed at search_db_by_field: {str(e)}"
                     logging.error(response)
-                results.append({
-                    'ticket': ticket_id,
-                    'subject': subject,
-                    'email_body': email_body,
-                    'Response Generated': response,
-                    'Template referred': template_subject
-                })
-            
+                    results.append({
+                        'ticket': ticket_id,
+                        'subject': subject,
+                        'email_body': email_body,
+                        'Response Generated': response,
+                        'Template referred': ''
+                    })
             # Write results after each successful processing to allow resuming
+            for r in results:
+                if 'Template referred' not in r:
+                    r['Template referred'] = 'unknown'
             results_df = pd.DataFrame(results)
+            logging.info(f"DEBUG: Full DataFrame before Excel write:\n{results_df}")
             results_df.to_excel(results_file, index=False)
             
         except Exception as e:

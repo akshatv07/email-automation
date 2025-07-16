@@ -57,26 +57,58 @@ class EmailTemplateGenerator:
         """
         # Format the search results for the prompt
         knowledge_context = self.format_search_results(search_data)
+        fallback_template_used = False
+        fallback_template_content = None
+        # Check for missing field error in search_data
+        error_msg = None
+        if isinstance(search_data, dict) and 'error' in search_data and 'Field' in search_data['error'] and 'not found in collection' in search_data['error']:
+            error_msg = search_data['error']
+            # Try to extract collection name from error message
+            import re
+            match = re.search(r"Field '.*' not found in collection '([^']+)'", error_msg)
+            if match:
+                collection_name = match.group(1)
+                # Try to find a template file matching the collection name
+                template_path = os.path.join('templates', f'{collection_name}.html')
+                if os.path.exists(template_path):
+                    with open(template_path, 'r', encoding='utf-8') as f:
+                        fallback_template_content = f.read()
+                        fallback_template_used = True
         try:
-            # Prepare the prompt for Bedrock
-            prompt = f"""You are a helpful customer support agent. \
-Generate a professional and empathetic email response based on the provided information.\nFocus on being clear, concise, and helpful.\n\nEmail Subject: {email_subject}\nTicket ID: {ticket_id if ticket_id else 'Not provided'}\n\nRelevant Information:\n{knowledge_context}\n\nGuidelines:\n1. Acknowledge the customer's concern\n2. Provide clear information based on the search results\n3. Be concise but thorough\n4. Maintain a professional and helpful tone\n5. If the status is available, highlight it clearly\n6. End with a call to action or next steps\n\nPlease draft an email response based on the above information:"""
-            start_time = time.time()
-            # Use the Bedrock LLM
-            generated_text = bedrock.generate_llm_response_with_backoff(
-                prompt,
-                max_tokens=self.max_output_tokens
-            )
-            elapsed = time.time() - start_time
-            print(f"Time to generate LLM response: {elapsed:.2f} seconds")
-            return {
-                'status': 'success',
-                'email_response': generated_text,
-                'metadata': {
-                    'model': self.model_id,
-                },
-                'search_metadata': search_data.get('metadata', {})
-            }
+            if fallback_template_used and fallback_template_content:
+                # Directly return the template content as the response, no LLM call
+                return {
+                    'status': 'success',
+                    'email_response': fallback_template_content,
+                    'metadata': {
+                        'model': None,
+                        'fallback_template_used': True,
+                        'fallback_template': os.path.basename(template_path) if fallback_template_used else None,
+                        'fallback_template_flag': 'FALL BACK TEMPLATE USED'
+                    },
+                    'search_metadata': search_data.get('metadata', {})
+                }
+            else:
+                # Prepare the prompt for Bedrock as before
+                prompt = f"""You are a helpful customer support agent.\nGenerate only the email body (do not include subject, ticket id, or any extra formatting).\nDo not include any label, heading, or prefix like 'Email Body:', 'Subject:', 'Ticket ID:', or '=== GENERATED EMAIL ==='. Absolutely do not include any such label. Output only the email content, starting directly with the greeting or first line of the email.\n\nRelevant Information:\n{knowledge_context}\n\nGuidelines:\n1. Acknowledge the customer's concern\n2. Provide clear information based on the search results\n3. Be concise but thorough\n4. Maintain a professional and helpful tone\n5. If the status is available, highlight it clearly\n6. End with a call to action or next steps\n\nPlease draft only the email body based on the above information."""
+                start_time = time.time()
+                # Use the Bedrock LLM
+                generated_text = bedrock.generate_llm_response_with_backoff(
+                    prompt,
+                    max_tokens=self.max_output_tokens
+                )
+                elapsed = time.time() - start_time
+                print(f"Time to generate LLM response: {elapsed:.2f} seconds")
+                return {
+                    'status': 'success',
+                    'email_response': generated_text,
+                    'metadata': {
+                        'model': self.model_id,
+                        'fallback_template_used': fallback_template_used,
+                        'fallback_template': os.path.basename(template_path) if fallback_template_used else None
+                    },
+                    'search_metadata': search_data.get('metadata', {})
+                }
         except Exception as e:
             return {
                 'status': 'error',

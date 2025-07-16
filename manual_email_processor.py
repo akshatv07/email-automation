@@ -5,6 +5,9 @@ import logging
 import subprocess
 import pandas as pd
 from datetime import datetime
+from core.data_db_processor import CATEGORY_SANITIZATION_MAP
+import tempfile
+import re
 
 # Configure logging
 logging.basicConfig(
@@ -99,42 +102,58 @@ def run_search_db_by_field(category, subject, body, status):
         raise RuntimeError(f"Search failed for collection {category}. See logs for details.") from e
 
 def run_email_responder(search_results_file, subject, ticket_id=''):
-    """Run email_responder to generate a response."""
+    """Run email_responder to generate a response and return only the email body."""
     logging.info(f"Running email_responder with results from {search_results_file}")
     cmd = [
         'python', 'email_responder.py',
         search_results_file,
         '--subject', subject,
-        '--ticket-id', ticket_id
+        '--ticket-id', ticket_id,
+        '--format', 'json'
     ]
     stdout = run_subprocess(cmd, "email_responder")
     logging.info("email_responder complete. Generated response.")
-    return stdout
+    # Find the first '{' and parse from there
+    start = stdout.find('{')
+    if start != -1:
+        try:
+            result = json.loads(stdout[start:])
+            if result.get('status') == 'success':
+                email_body = result.get('email_response', '').strip()
+                # Post-process to remove any leading 'Email Body:' and blank lines
+                import re
+                email_body = re.sub(r'^(email body:)[ \t]*\n*', '', email_body, flags=re.IGNORECASE)
+                return email_body
+            else:
+                return f"Error: {result.get('error', 'Unknown error')}"
+        except Exception as e:
+            return f"Error parsing email_responder output: {e}"
+    else:
+        return f"Error: Could not find JSON in email_responder output"
 
 def process_manual_email(ticket, subject, email_body=None):
-    """Process a single email with manual input."""
     results = []
     try:
         # Step 1: Get status and category
         try:
             status, category = run_data_db_processor(ticket)
-            
-            # Convert 'im_closed' to 'imclosed'
             if status == 'im_closed':
                 logging.info(f"Converting status from 'im_closed' to 'imclosed'")
                 status = 'imclosed'
         except Exception as e:
             response = f"Failed at data_db_processor: {str(e)}"
             logging.error(response)
-            return [{
+            results.append({
                 'ticket': ticket,
                 'subject': subject,
                 'email_body': email_body or '',
-                'Response': response
-            }]
-
-        # Log the final status after potential conversion
-        logging.info(f"Final status for ticket {ticket}: {status}")
+                'Response Generated': response,
+                'Template referred': ''
+            })
+            results_df = pd.DataFrame(results)
+            results_file = 'manual_results.xlsx'
+            results_df.to_excel(results_file, index=False)
+            return results
 
         # Map categories if needed
         if category == 'predisbursal_loan_query_im+_instances':
@@ -143,8 +162,8 @@ def process_manual_email(ticket, subject, email_body=None):
         if category == 'update_-_edit_details_bank_account_details_':
             logging.info("Mapping category 'update_-_edit_details_bank_account_details_' to 'update_edit_details_bank_accou'")
             category = 'update_edit_details_bank_accou'
+        category = CATEGORY_SANITIZATION_MAP.get(category, category)
 
-        # Skip certain categories
         skip_search_categories = [
             'post_loan_disbursal_query_payment_lndn_payment_',
             'predisbursal_loan_query_rf/vf_query_general_information',
@@ -158,57 +177,121 @@ def process_manual_email(ticket, subject, email_body=None):
         if category in skip_search_categories:
             response = f"Skipped search_db_by_field for category: {category}"
             logging.info(response)
+            results.append({
+                'ticket': ticket,
+                'subject': subject,
+                'email_body': email_body or '',
+                'Response Generated': response,
+                'Template referred': ''
+            })
         elif not category:
             response = "Failed at category check: Category is empty. Cannot run search_db_by_field."
             logging.error(response)
+            results.append({
+                'ticket': ticket,
+                'subject': subject,
+                'email_body': email_body or '',
+                'Response Generated': response,
+                'Template referred': ''
+            })
         else:
-            # Step 2: Search for template
-            # Use subject as body if email_body is not provided
             search_body = email_body if email_body else subject
             try:
                 search_results_file = run_search_db_by_field(category, subject, search_body, status)
-            except Exception as e:
-                response = f"Failed at search_db_by_field: {str(e)}"
-                logging.error(response)
-                return [{
+                # Load the search results JSON
+                with open(search_results_file, 'r', encoding='utf-8') as f:
+                    search_data = json.load(f)
+                # Fallback logic: check for error or empty results
+                template_referred = ''
+                response_generated = ''
+                if (
+                    len(search_data['results']) > 0 and
+                    'fields' in search_data['results'][0] and
+                    status in search_data['results'][0]['fields'] and
+                    search_data['results'][0]['fields'][status]
+                ):
+                    # Valid search result, use the search results JSON file for email_responder
+                    template_referred = f"used template from search({category})"
+                    try:
+                        response_generated = run_email_responder(search_results_file, subject, ticket)
+                    except Exception as e:
+                        response_generated = f"Failed to run email_responder: {e}"
+                else:
+                    # Fallback: use template
+                    template_filename = f"{category}.html"
+                    template_path = os.path.join("templates", template_filename)
+                    if os.path.exists(template_path):
+                        with open(template_path, "r", encoding="utf-8") as tf:
+                            template_text = tf.read()
+                        template_referred = "fallback template used"
+                    else:
+                        template_text = ''
+                        template_referred = "fallback template used"
+                    # Create a temp JSON file in the expected format
+                    if template_text:
+                        temp_json = {
+                            "results": [
+                                {
+                                    "fields": {
+                                        "fallback": template_text
+                                    }
+                                }
+                            ]
+                        }
+                        with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
+                            import json as _json
+                            _json.dump(temp_json, tmpf, ensure_ascii=False)
+                            tmpf.flush()
+                            tmpf_name = tmpf.name
+                        try:
+                            response_generated = run_email_responder(tmpf_name, subject, ticket)
+                        finally:
+                            os.unlink(tmpf_name)
+                # Always append the result with the current template_referred and response_generated
+                if not template_referred:
+                    template_referred = "unknown"
+                logging.info(f"DEBUG: Appending result with template_referred='{template_referred}'")
+                print(f"DEBUG: Appending result with template_referred='{template_referred}'")
+                results.append({
                     'ticket': ticket,
                     'subject': subject,
                     'email_body': email_body or '',
-                    'Response': response
-                }]
-            
-            # Step 3: Generate LLM response
-            try:
-                resp = run_email_responder(search_results_file, subject, ticket)
-                response = resp if resp else "Response generated successfully."
+                    'Response Generated': response_generated,
+                    'Template referred': template_referred
+                })
             except Exception as e:
-                response = f"Failed at email_responder: {str(e)}"
+                response = f"Failed at search_db_by_field: {str(e)}"
                 logging.error(response)
-
-        # Append results
-        results.append({
-            'ticket': ticket,
-            'subject': subject,
-            'email_body': email_body or '',
-            'Response': response
-        })
-
-        # Save results to Excel
+                results.append({
+                    'ticket': ticket,
+                    'subject': subject,
+                    'email_body': email_body or '',
+                    'Response Generated': response,
+                    'Template referred': ''
+                })
+        # Save results to Excel after each ticket
+        # Ensure all result dicts have the 'Template referred' key
+        for r in results:
+            if 'Template referred' not in r:
+                r['Template referred'] = 'unknown'
         results_df = pd.DataFrame(results)
+        logging.info(f"DEBUG: Full DataFrame before Excel write:\n{results_df}")
         results_file = 'manual_results.xlsx'
         results_df.to_excel(results_file, index=False)
         logging.info(f"Results saved to {results_file}")
-
         return results
-
     except Exception as e:
         logging.error(f"Workflow failed for ticket {ticket}: {e}")
         results.append({
             'ticket': ticket,
             'subject': subject,
             'email_body': email_body or '',
-            'Response': f"Failed at unknown step: {e}"
+            'Response Generated': f"Failed at unknown step: {e}",
+            'Template referred': ''
         })
+        results_df = pd.DataFrame(results)
+        results_file = 'manual_results.xlsx'
+        results_df.to_excel(results_file, index=False)
         return results
 
 def main():
@@ -245,7 +328,9 @@ def main():
             print(f"Subject: {result['subject']}")
             if result['email_body']:
                 print(f"Email Body: {result['email_body']}")
-            print(f"Response: {result['Response']}")
+            print(f"Response: {result['Response Generated']}")
+            if result['Template referred']:
+                print(f"Template referred: {result['Template referred']}")
         
         print("\n")
 
