@@ -88,15 +88,23 @@ class EmailTemplateGenerator:
                     fallback_template_used = True
         try:
             if fallback_template_used and fallback_template_content:
-                # Directly return the template content as the response, no LLM call
+                # Instead of returning the template directly, use it as knowledge_context for the LLM
+                prompt = f"""You are a helpful customer support agent.\nGenerate only the email body (do not include subject, ticket id, or any extra formatting).\nDo not include any label, heading, or prefix like 'Email Body:', 'Subject:', 'Ticket ID:', or '=== GENERATED EMAIL ==='. Absolutely do not include any such label. Output only the email content, starting directly with the greeting or first line of the email.\n\nRelevant Information (Template):\n{fallback_template_content}\n\nGuidelines:\n1. Acknowledge the customer's concern\n2. Provide clear information based on the template\n3. Be concise but thorough\n4. Maintain a professional and helpful tone\n5. If the status is available, highlight it clearly\n6. End with a call to action or next steps\n\nPlease draft only the email body based on the above information."""
+                start_time = time.time()
+                generated_text = bedrock.generate_llm_response_with_backoff(
+                    prompt,
+                    max_tokens=self.max_output_tokens
+                )
+                elapsed = time.time() - start_time
+                print(f"Time to generate LLM response (fallback): {elapsed:.2f} seconds")
                 return {
                     'status': 'success',
-                    'email_response': fallback_template_content,
+                    'email_response': generated_text,
                     'metadata': {
-                        'model': None,
+                        'model': self.model_id,
                         'fallback_template_used': True,
                         'fallback_template': os.path.basename(template_path) if fallback_template_used and template_path else '',
-                        'fallback_template_flag': 'FALL BACK TEMPLATE USED'
+                        'fallback_template_flag': 'FALL BACK TEMPLATE USED (LLM)'
                     },
                     'search_metadata': search_data.get('metadata', {})
                 }
