@@ -208,72 +208,22 @@ def main(input_file='test_data.csv', resume=False):
                 logging.error(response)
             else:
                 # Step 2: Search for template
-                template_referred = ''
-                response_generated = ''
-                template_text = ''
                 try:
+                    import tempfile
                     search_results_stdout = run_search_db_by_field(category, subject, email_body, status)
-                    # Try to parse JSON output from search_db_by_field
-                    search_data = None
+                    # Always write the search results to a temp file
+                    with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
+                        tmpf.write(search_results_stdout)
+                        tmpf.flush()
+                        tmpf_name = tmpf.name
                     try:
-                        search_data = json.loads(search_results_stdout)
-                    except Exception:
-                        pass
-                    if (
-                        search_data and 'results' in search_data and isinstance(search_data['results'], list) and
-                        len(search_data['results']) > 0 and
-                        'fields' in search_data['results'][0] and
-                        status in search_data['results'][0]['fields'] and
-                        search_data['results'][0]['fields'][status]
-                    ):
-                        # Valid search result, use the search results JSON (from stdout) for email_responder
-                        template_referred = f"used template from search({category})"
-                        try:
-                            import tempfile
-                            # Write the search_results_stdout (JSON string) to a temp file
-                            with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
-                                tmpf.write(search_results_stdout)
-                                tmpf.flush()
-                                tmpf_name = tmpf.name
-                            try:
-                                response_generated = run_email_responder(tmpf_name, subject, ticket_id)
-                            finally:
-                                os.unlink(tmpf_name)
-                        except Exception as e:
-                            response_generated = f"Failed to run email_responder: {e}"
-                    else:
-                        # Fallback: use template
-                        template_filename = f"{category}.html"
-                        template_path = os.path.join("templates", template_filename)
-                        if os.path.exists(template_path):
-                            with open(template_path, "r", encoding="utf-8") as tf:
-                                template_text = tf.read()
-                            template_referred = "fallback template used"
-                        else:
-                            template_text = ''
-                            template_referred = "fallback template used"
-                        # Create a temp JSON file in the expected format
-                        if template_text:
-                            import tempfile
-                            temp_json = {
-                                "results": [
-                                    {
-                                        "fields": {
-                                            "fallback": template_text
-                                        }
-                                    }
-                                ]
-                            }
-                            with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
-                                import json as _json
-                                _json.dump(temp_json, tmpf, ensure_ascii=False)
-                                tmpf.flush()
-                                tmpf_name = tmpf.name
-                            try:
-                                response_generated = run_email_responder(tmpf_name, subject, ticket_id)
-                            finally:
-                                os.unlink(tmpf_name)
-                    # Always append the result with the current template_referred and response_generated
+                        response_generated = run_email_responder(tmpf_name, subject, ticket_id)
+                        template_referred = "email_responder used (search or fallback)"
+                    except Exception as e:
+                        response_generated = f"Failed to run email_responder: {e}"
+                        template_referred = "email_responder error"
+                    finally:
+                        os.unlink(tmpf_name)
                     if not template_referred:
                         template_referred = "unknown"
                     print(f"DEBUG: Appending result with template_referred='{template_referred}'")

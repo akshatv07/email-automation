@@ -1,4 +1,5 @@
 import pandas as pd
+import re
 
 # Category sanitization mapping
 CATEGORY_SANITIZATION_MAP = {
@@ -81,15 +82,23 @@ def process_ticket_metadata(ticket_id: str) -> dict:
                 if lr_status and lr_status.lower() != 'nan':
                     status_list.append(lr_status)
             status = create_single_line_status(data_from_im, status_list, row)
+            # Sanitize status: remove trailing _<number> if present
+            status_sanitized = re.sub(r'_[0-9]+$', '', status)
+            category_raw = str(row.get('new', '')).lower()
+            category_sanitized = CATEGORY_SANITIZATION_MAP.get(category_raw, category_raw)
             return {
-                "status": status,
-                "category": str(row.get('new', '')).lower()
+                "status": status_sanitized,
+                "category": category_sanitized
             }
         else:
             lr_status = str(row.get('lr_status', '')).strip()
+            # Sanitize status: remove trailing _<number> if present
+            status_sanitized = re.sub(r'_[0-9]+$', '', lr_status)
+            category_raw = str(row.get('new', '')).lower()
+            category_sanitized = CATEGORY_SANITIZATION_MAP.get(category_raw, category_raw)
             return {
-                "status": lr_status,
-                "category": str(row.get('new', '')).lower()
+                "status": status_sanitized,
+                "category": category_sanitized
             }
     return {
         "status": "not_found",

@@ -1,0 +1,3 @@
+{
+  "error": "Field 'imdisburseddelayed' not found in collection 'predisbursal_loan_approved_disb'. Available fields: ['id', 'embedding', 'subject', 'email_body', 'imsanctioned', 'im_sanctioned', 'improcessing', 'im_processing', 'imunderreview', 'im_underreview', 'imapproved', 'im_approved', 'imcreated', 'im_created']"
+}

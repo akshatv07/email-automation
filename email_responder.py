@@ -59,21 +59,33 @@ class EmailTemplateGenerator:
         knowledge_context = self.format_search_results(search_data)
         fallback_template_used = False
         fallback_template_content = None
+        template_path = None
         # Check for missing field error in search_data
         error_msg = None
-        if isinstance(search_data, dict) and 'error' in search_data and 'Field' in search_data['error'] and 'not found in collection' in search_data['error']:
-            error_msg = search_data['error']
-            # Try to extract collection name from error message
-            import re
-            match = re.search(r"Field '.*' not found in collection '([^']+)'", error_msg)
-            if match:
-                collection_name = match.group(1)
-                # Try to find a template file matching the collection name
-                template_path = os.path.join('templates', f'{collection_name}.html')
-                if os.path.exists(template_path):
-                    with open(template_path, 'r', encoding='utf-8') as f:
-                        fallback_template_content = f.read()
-                        fallback_template_used = True
+        collection_name = None
+        # Try to extract collection name from error or metadata
+        if isinstance(search_data, dict):
+            if 'error' in search_data and 'Field' in search_data['error'] and 'not found in collection' in search_data['error']:
+                error_msg = search_data['error']
+                import re
+                match = re.search(r"Field '.*' not found in collection '([^']+)'", error_msg)
+                if match:
+                    collection_name = match.group(1)
+            elif 'metadata' in search_data and 'collection' in search_data['metadata']:
+                collection_name = search_data['metadata']['collection']
+        # If no collection name found, fallback to a generic template if needed
+        # Check if fallback is needed: no results or missing results key
+        no_results = (
+            not search_data or
+            ('results' not in search_data) or
+            (isinstance(search_data.get('results', None), list) and len(search_data['results']) == 0)
+        )
+        if no_results and collection_name:
+            template_path = os.path.join('templates', f'{collection_name}.html')
+            if os.path.exists(template_path):
+                with open(template_path, 'r', encoding='utf-8') as f:
+                    fallback_template_content = f.read()
+                    fallback_template_used = True
         try:
             if fallback_template_used and fallback_template_content:
                 # Directly return the template content as the response, no LLM call
@@ -83,8 +95,21 @@ class EmailTemplateGenerator:
                     'metadata': {
                         'model': None,
                         'fallback_template_used': True,
-                        'fallback_template': os.path.basename(template_path) if fallback_template_used else None,
+                        'fallback_template': os.path.basename(template_path) if fallback_template_used and template_path else '',
                         'fallback_template_flag': 'FALL BACK TEMPLATE USED'
+                    },
+                    'search_metadata': search_data.get('metadata', {})
+                }
+            elif no_results:
+                # If no results and no template, return a generic fallback message
+                return {
+                    'status': 'success',
+                    'email_response': "I'm sorry, but I couldn't find specific information related to your query in our current knowledge base. Our team will investigate this further to guide you to a solution as soon as possible. Thank you for your patience while we look into this.",
+                    'metadata': {
+                        'model': None,
+                        'fallback_template_used': True,
+                        'fallback_template': None,
+                        'fallback_template_flag': 'GENERIC FALLBACK USED'
                     },
                     'search_metadata': search_data.get('metadata', {})
                 }
@@ -105,7 +130,7 @@ class EmailTemplateGenerator:
                     'metadata': {
                         'model': self.model_id,
                         'fallback_template_used': fallback_template_used,
-                        'fallback_template': os.path.basename(template_path) if fallback_template_used else None
+                        'fallback_template': os.path.basename(template_path) if fallback_template_used and template_path else ''
                     },
                     'search_metadata': search_data.get('metadata', {})
                 }

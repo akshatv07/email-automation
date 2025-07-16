@@ -162,7 +162,7 @@ def process_manual_email(ticket, subject, email_body=None):
         if category == 'update_-_edit_details_bank_account_details_':
             logging.info("Mapping category 'update_-_edit_details_bank_account_details_' to 'update_edit_details_bank_accou'")
             category = 'update_edit_details_bank_accou'
-        category = CATEGORY_SANITIZATION_MAP.get(category, category)
+        category = CATEGORY_SANITIZATION_MAP.get(category.lower(), category)
 
         skip_search_categories = [
             'post_loan_disbursal_query_payment_lndn_payment_',
@@ -198,59 +198,14 @@ def process_manual_email(ticket, subject, email_body=None):
             search_body = email_body if email_body else subject
             try:
                 search_results_file = run_search_db_by_field(category, subject, search_body, status)
-                # Load the search results JSON
-                with open(search_results_file, 'r', encoding='utf-8') as f:
-                    search_data = json.load(f)
-                # Fallback logic: check for error or empty results
-                template_referred = ''
-                response_generated = ''
-                if (
-                    len(search_data['results']) > 0 and
-                    'fields' in search_data['results'][0] and
-                    status in search_data['results'][0]['fields'] and
-                    search_data['results'][0]['fields'][status]
-                ):
-                    # Valid search result, use the search results JSON file for email_responder
-                    template_referred = f"used template from search({category})"
-                    try:
-                        response_generated = run_email_responder(search_results_file, subject, ticket)
-                    except Exception as e:
-                        response_generated = f"Failed to run email_responder: {e}"
-                else:
-                    # Fallback: use template
-                    template_filename = f"{category}.html"
-                    template_path = os.path.join("templates", template_filename)
-                    if os.path.exists(template_path):
-                        with open(template_path, "r", encoding="utf-8") as tf:
-                            template_text = tf.read()
-                        template_referred = "fallback template used"
-                    else:
-                        template_text = ''
-                        template_referred = "fallback template used"
-                    # Create a temp JSON file in the expected format
-                    if template_text:
-                        temp_json = {
-                            "results": [
-                                {
-                                    "fields": {
-                                        "fallback": template_text
-                                    }
-                                }
-                            ]
-                        }
-                        with tempfile.NamedTemporaryFile('w+', delete=False, suffix='.json', encoding='utf-8') as tmpf:
-                            import json as _json
-                            _json.dump(temp_json, tmpf, ensure_ascii=False)
-                            tmpf.flush()
-                            tmpf_name = tmpf.name
-                        try:
-                            response_generated = run_email_responder(tmpf_name, subject, ticket)
-                        finally:
-                            os.unlink(tmpf_name)
-                # Always append the result with the current template_referred and response_generated
+                try:
+                    response_generated = run_email_responder(search_results_file, subject, ticket)
+                    template_referred = "email_responder used (search or fallback)"
+                except Exception as e:
+                    response_generated = f"Failed to run email_responder: {e}"
+                    template_referred = "email_responder error"
                 if not template_referred:
                     template_referred = "unknown"
-                logging.info(f"DEBUG: Appending result with template_referred='{template_referred}'")
                 print(f"DEBUG: Appending result with template_referred='{template_referred}'")
                 results.append({
                     'ticket': ticket,
